@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Shoulders</title>
+{% endblock %}
+
+{% block body %}
+<main class="content content-exercises container">
+ <h2>Shoulders</h2>
+
+ <div class="categories">
+  <a href="{{ url_for('barbell_press') }}">
+   <div class="categories__item categories__item--barbell-press">
+    <img src="{{ url_for('static', filename='images/tutorial/barbell-press-step2.jpg')}}" />
+
+    <div class="image-overlay">
+     <p>Barbell Press</p>
+
+     <div class="categories-explanation">
+      <p class="bpart-bot">
+       Middle Delts, Front Delts, Triceps
+      </p>
+     </div>
+    </div>
+   </div>
+  </a>
+
+  <a href="{{ url_for('dumbbell_press') }}">
+   <div class="categories__item categories__item--dumbbell-press">
+    <img src="{{ url_for('static', filename='images/tutorial/dumbbell_press-step2.png')}}" />
+
+    <div class="image-overlay">
+     <p>Dumbbell Press</p>
+
+     <div class="categories-explanation">
+      <p class="bpart-bot">
+        Front Delts, Middle Delts, Triceps
+      </p>
+     </div>
+    </div>
+   </div>
+  </a>
+
+  <a href="{{ url_for('lateral_raises') }}" class="categories-legs">
+   <div class="categories__item categories__item--lateral-raises">
+    <img src="{{ url_for('static', filename='images/tutorial/lateral-raises-step2.jpg')}}" />
+
+    <div class="image-overlay">
+     <p>Lateral Raises</p>
+
+     <div class="categories-explanation">
+      <p class="bpart-bot">
+        Middle Delts, Front Delts, Rear Delts
+      </p>
+     </div>
+    </div>
+   </div>
+  </a>
+ </div>
+</main>
+{% endblock %}

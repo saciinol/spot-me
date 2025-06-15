@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Legs</title>
+{% endblock %}
+
+{% block body %}
+<main class="content content-exercises container">
+ <h2>Legs</h2>
+
+ <div class="categories">
+  <a href="{{ url_for('squat') }}">
+   <div class="categories__item categories__item--squat">
+    <img src="{{ url_for('static', filename='images/tutorial/squat-step1.png')}}" />
+
+    <div class="image-overlay">
+     <p>Squat</p>
+
+     <div class="categories-explanation">
+      <p class="bpart-bot">
+       Quadriceps, Glutes, Hamstrings, Adductors
+      </p>
+     </div>
+    </div>
+   </div>
+  </a>
+
+  <a href="{{ url_for('deadlift') }}">
+   <div class="categories__item categories__item--deadlift">
+    <img src="{{ url_for('static', filename='images/tutorial/deadlift-step5.jpg')}}" />
+
+    <div class="image-overlay">
+     <p>Deadlift</p>
+
+     <div class="categories-explanation">
+      <p class="bpart-bot">
+       Quadriceps, Glutes, Hamstrings, Lower Back
+      </p>
+     </div>
+    </div>
+   </div>
+  </a>
+ </div>
+</main>
+{% endblock %}

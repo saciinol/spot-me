@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ <meta charset="UTF-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ {{ font_awesome.load_css() }}
+ <link rel="icon" href="{{ url_for('static', filename='images/icons/tab-icon.png')}}" />
+ <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
+ <link rel="stylesheet" href="{{ 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css' }}"
+  integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+  crossorigin="anonymous" referrerpolicy="no-referrer" />
+ <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+ <title>Home</title>
+</head>
+
+<body class="body-stats">
+ <div id="overlay"></div>
+ {% include 'header.html' %}` {% include 'sidebar.html' %} {% include
+ 'instructions.html' %}
+
+ <main class="container stats-container index-container">
+  <div class="stats-pos">
+   <div class="stats-top">
+    <div class="stats-header">
+      <h2>{{ session.username }}'s Exercise Summaries</h2>
+
+      <select id="duration">
+        <option value="daily">Everyday</option>
+        <option value="weekly">This Week</option>
+        <option value="monthly">This Month</option>
+      </select>
+    </div>
+
+    <div class="stats-body"></div>
+   </div>
+  </div>
+
+  <script>
+   const exercises = [
+    "pull_ups", "barbell_rows", "barbell_press", 
+    "dumbbell_press", "lateral_raises", "barbell_curl", 
+    "dumbbell_bicep_curl", "squat", "deadlift"
+   ];
+
+   const charts = {};
+
+   function createChart(reps, exercise) {
+    let stats = "";
+    let name = "";
+    let chart;
+
+    switch (exercise) {
+     case "pull_ups":
+      stats = "statsChartPullUps";
+      name = "Pull Ups";
+      break;
+     case "barbell_rows":
+      stats = "statsChartBarbellRows";
+      name = "Barbell Rows";
+      break;
+     case "barbell_press":
+      stats = "statsChartBarbellPress";
+      name = "Barbell Press";
+      break;
+     case "dumbbell_press":
+      stats = "statsChartDumbbellPress";
+      name = "Dumbbell Press";
+      break;
+     case "lateral_raises":
+      stats = "statsChartLateralRaises";
+      name = "Lateral Raises";
+      break;
+     case "barbell_curl":
+      stats = "statsChartBarbellCurl";
+      name = "Barbell Curl";
+      break;
+     case "dumbbell_bicep_curl":
+      stats = "statsChartDumbbellBicepCurl";
+      name = "Dumbbell Bicep Curl";
+      break;
+     case "squat":
+      stats = "statsChartSquat";
+      name = "Squat";
+      break;
+     case "deadlift":
+      stats = "statsChartDeadlift";
+      name = "Deadlift";
+      break;
+    }
+
+    const newCanvas = document.createElement("canvas");
+    newCanvas.setAttribute("id", stats);
+
+    const statsDiv = document.querySelector(".stats-body");
+    statsDiv.appendChild(newCanvas);
+
+    const ctx = document.querySelector(`#${stats}`);
+    let labels = reps.length;
+
+    let colors = [];
+    for (let i = 0; i < reps.length; i++) {
+     if (i === 0 || reps[i] >= reps[i - 1]) {
+      colors.push("rgba(75, 192, 75, 0.7)");
+     } else {
+      colors.push("rgba(255, 99, 132, 0.7)");
+     }
+    }
+
+    if (charts[exercise]) {
+     charts[exercise].destroy();
+    }
+
+    charts[exercise] = new Chart(ctx, {
+     type: "line",
+     data: {
+      labels: Array(labels).fill(""),
+      datasets: [
+       {
+        label: name,
+        data: reps,
+        backgroundColor: colors,
+        borderColor: "#525252",
+        borderWidth: 2,
+        fill: false,
+       },
+      ],
+     },
+     options: {
+      responsive: true,
+        plugins: {
+          legend: {
+            labels: {
+              font: {
+                size: window.innerWidth > 580 ? 40 : 12,
+              },
+            },
+          },
+        },
+        scales: {
+          x: {
+            ticks: {
+              font: {
+                size: window.innerWidth > 580 ? 30 : 12,
+              },
+            },
+          },
+          y: {
+            title: { display: true,
+              text: "Repetitions",
+              font: {
+                size: window.innerWidth > 580 ? 40 : 12,
+              },
+            },
+            ticks: {
+              font: {
+                size: window.innerWidth > 580 ? 30 : 12,
+              },
+            },
+            beginAtZero: true,
+          },
+        },
+     },
+    });
+   }
+
+   function getProgress(exercise, durationValue) {
+    fetch(`/get_progress/${exercise}/${durationValue}`, {
+     method: "POST",
+    })
+     .then((response) => response.json())
+     .then((data) => {
+      const reps = data.reps;
+
+      createChart(reps, exercise);
+     });
+   }
+
+   exercises.forEach((exercise) => {
+    getProgress(exercise);
+   });
+
+   const duration = document.querySelector("#duration");
+   let durationValue = "daily";
+
+   duration.addEventListener("click", () => {
+    exercises.forEach((exercise) => {
+     getProgress(exercise, durationValue = duration.value);
+    });
+   });
+  </script>
+ </main>
+
+ <nav class="navigation">
+  <ul>
+   <li class="list active">
+    <a href="{{ url_for('index') }}">
+     <span class="icon">{{font_awesome.render_icon("fas fa-house")}}</span>
+     <span class="text">Home</span>
+    </a>
+   </li>
+
+   <li class="list">
+    <a href="{{ url_for('categories') }}">
+     <span class="icon">{{font_awesome.render_icon("fas fa-dumbbell")}}</span>
+     <span class="text">Categories</span>
+    </a>
+   </li>
+
+   <li class="list">
+    <a href="{{ url_for('terminologies') }}">
+     <span class="icon">{{font_awesome.render_icon("fas fa-book")}}</span>
+     <span class="text">Terminologies</span>
+    </a>
+   </li>
+
+   <li class="list">
+    <a href="{{ url_for('tips') }}">
+     <span class="icon">{{font_awesome.render_icon("fas fa-shield")}}</span>
+     <span class="text">Safety Tips</span>
+    </a>
+   </li>
+  </ul>
+ </nav>
+
+ 
+</body>
+
+<script type="text/javascript" src="{{ url_for('static', filename='js/terms.js')}}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/navigation.js')}}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/sidebar_toggle.js')}}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/delete-popup.js')}}"></script>
+
+
+</html>

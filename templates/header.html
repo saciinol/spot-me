@@ -1,0 +1,63 @@
+<div class="popup-return">
+	<div class="popup-return-container">
+		<h2>Go back?</h2>
+
+		<div class="btn-yesno-return">
+			<a class="save-close-return">No</a>
+			<a class="save-save-return" id="btn-previous">Yes</a>
+		</div>
+	</div>
+</div>
+
+<header>
+	<div class="arrow">
+		{% if request.path == "/bench_press" or
+								request.path == "/dumbbell_bench_press" or
+								request.path == "/pull_ups" or
+								request.path == "/barbell_rows" or
+								request.path == "/lateral_raises" or
+								request.path == "/barbell_press" or
+								request.path == "/dumbbell_press" or
+								request.path == "/barbell_curl" or
+								request.path == "/dumbbell_bicep_curl" or
+								request.path == "/squat" or
+								request.path == "/deadlift"
+		%}
+			<a id="btn-back">
+				{{ font_awesome.render_icon("fas fa-arrow-left fa-2xl") }}
+			</a>
+		{% elif request.path != "/index" and 
+										request.path != "/categories" and 
+										request.path != "/terminologies" and 
+										request.path != "/tips" 
+		%}
+			<a id="btn-just-back">
+				{{ font_awesome.render_icon("fas fa-arrow-left fa-2xl") }}
+			</a>
+		{% else %}
+			<div id="btn-back-invisible">
+			</div>
+		{% endif %}
+	</div>
+
+	<div class="logo">
+    <a href="{{ url_for('index') }}">
+      <img src="{{ url_for('static', filename='images/icons/spotme-icon-dark.png')}}" alt="" />
+      <img src="{{ url_for('static', filename='images/icons/spotme-icon-light.png')}}" alt="" />
+    </a>
+	</div>
+
+	<div class="colormode-burger">
+		<button class="toggle-menu">
+			<span></span>
+			<span></span>
+			<span></span>
+		</button>
+	</div>
+
+</header>
+
+{% if request.path != "/index" and request.path != "/categories" and request.path != "/terminologies" and request.path
+!= "/tips" %}
+	<script src="{{ url_for('static', filename='js/back_and_reset.js') }}"></script>
+{% endif %}

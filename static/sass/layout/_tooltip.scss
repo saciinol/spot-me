@@ -1,0 +1,54 @@
+.label-with-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 0.5em;
+
+  &-header {
+    display: flex;
+
+    h2 {
+      font-size: 1.5rem;
+    }
+  }
+}
+
+.tooltip-container {
+  position: relative;
+  display: none;
+  padding-bottom: 0.3em;
+
+  .tooltip {
+    position: absolute;
+    left: 50%;
+    bottom: 125%;
+    margin-left: -125px;
+    visibility: hidden;
+    opacity: 0;
+    width: 200px;
+    padding: 1rem;
+    border-radius: 6.6px;
+    background-color: $background-dark;
+    color: $foreground-dark;
+    text-align: center;
+    transition: opacity 0.3s;
+  }
+}
+
+.tooltip-container:hover {
+  .tooltip {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+.label-critique {
+  align-items: flex-start;
+
+  .tooltip-container {
+    padding-top: 0.5em;
+  }
+}
+

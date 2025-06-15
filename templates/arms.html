@@ -1,0 +1,41 @@
+{% extends 'base.html' %} {% block head %}
+<title>Arms</title>
+{% endblock %} {% block body %}
+<main class="content content-exercises container">
+	<h2>Arms</h2>
+
+	<div class="categories">
+		<a href="{{ url_for('barbell_curl') }}">
+			<div class="categories__item categories__item--barbell-bicep-curl">
+				<img src="{{ url_for('static', filename='images/tutorial/barbell-curl-step2.jpg')}}" />
+
+				<div class="image-overlay">
+					<p>Barbell Bicep Curl</p>
+
+					<div class="categories-explanation">
+						<p class="bpart-bot">
+							Biceps, Forearms
+						</p>
+					</div>
+				</div>
+			</div>
+		</a>
+
+		<a href="{{ url_for('dumbbell_bicep_curl') }}">
+			<div class="categories__item categories__item--dumbbell-bicep-curl">
+				<img src="{{ url_for('static', filename='images/tutorial/dumbbell_bicep_curl_step2.jpg')}}" />
+
+				<div class="image-overlay">
+					<p>Dumbbell Bicep Curl</p>
+
+					<div class="categories-explanation">
+						<p class="bpart-bot">
+							Biceps, Forearms
+						</p>
+					</div>
+				</div>
+			</div>
+		</a>
+	</div>
+</main>
+{% endblock %}

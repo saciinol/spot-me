@@ -1,0 +1,131 @@
+{% extends 'base.html' %} {% block head %}
+<title>Home</title>
+{% endblock %} {% block body %}
+
+<main class="content container">
+	<div class="panel">
+		<div class="categories">
+			<!-- <a href="{{ url_for('chest') }}">
+				<div class="categories__item categories__item--chest">
+					<img src="{{ url_for('static', filename='images/tutorial/bench-press-step3.jpg')}}" />
+
+					<div class="image-overlay">
+						<p class="bpart">CHEST</p>
+
+						<div class="categories-explanation">
+							<p class="bpart-bot">
+								Strengthens and build the pectoral muscles, improving upper body strength, posture, and aesthetics.
+							</p>
+							<p class="bpart-bot bpart-clr">2 Exercises</p>
+						</div>
+					</div>
+				</div>
+			</a> -->
+
+			<a href="{{ url_for('back') }}">
+				<div class="categories__item categories__item--back">
+					<img src="{{ url_for('static', filename='images/tutorial/pull-ups-step4.jpg')}}" />
+
+					<div class="image-overlay">
+						<p class="bpart">BACK</p>
+
+						<div class="categories-explanation">
+							<p class="bpart-bot">
+								Strengthens the muscles supporting the spine, improving posture, stability, and overall upper body strength.
+							</p>
+							<p class="bpart-bot bpart-clr">2 Exercises</p>
+						</div>
+					</div>
+				</div>
+			</a>
+
+			<a href="{{ url_for('shoulders') }}">
+				<div class="categories__item categories__item--shoulders">
+					<img src="{{ url_for('static', filename='images/tutorial/barbell-press-step2.jpg')}}" />
+
+					<div class="image-overlay">
+						<p class="bpart">SHOULDERS</p>
+
+						<div class="categories-explanation">
+							<p class="bpart-bot">
+								Builds strength, stability, and mobility in the deltoid muscles, enhancing posture and upper body function.
+							</p>
+							<p class="bpart-bot bpart-clr">3 Exercises</p>
+						</div>
+					</div>
+				</div>
+			</a>
+
+			<a href="{{ url_for('arms') }}">
+				<div class="categories__item categories__item--arms">
+					<img src="{{ url_for('static', filename='images/tutorial/barbell-curl-step2.jpg')}}" />
+
+					<div class="image-overlay">
+						<p class="bpart">ARMS</p>
+
+						<div class="categories-explanation">
+							<p class="bpart-bot">
+								Strengthens the biceps, triceps, and forearms, improving grip, endurance, and overall upper body strength.
+							</p>
+							<p class="bpart-bot bpart-clr">2 Exercises</p>
+						</div>
+					</div>
+				</div>
+			</a>
+
+			<a href="{{ url_for('legs') }}">
+				<div class="categories__item categories__item--legs">
+					<img src="{{ url_for('static', filename='images/tutorial/squat-step1.png')}}" />
+
+					<div class="image-overlay">
+						<p class="bpart">LEGS</p>
+
+						<div class="categories-explanation">
+							<p class="bpart-bot">
+								Builds strength, power, and endurance in the lower body, improving balance, mobility, and overall athletic performance.
+							</p>
+							<p class="bpart-bot bpart-clr">2 Exercises</p>
+						</div>
+					</div>
+				</div>
+			</a>
+		</div>
+	</div>
+
+	<nav class="navigation">
+		<ul>
+			<li class="list">
+				<a href="{{ url_for('index') }}">
+					<span class="icon">{{font_awesome.render_icon("fas fa-house")}}</span>
+					<span class="text">Home</span>
+				</a>
+			</li>
+
+   <li class="list active">
+    <a href="{{ url_for('categories') }}">
+     <span class="icon">{{font_awesome.render_icon("fas fa-dumbbell")}}</span>
+     <span class="text">Categories</span>
+    </a>
+   </li>
+
+			<li class="list">
+				<a href="{{ url_for('terminologies') }}">
+					<span class="icon">{{font_awesome.render_icon("fas fa-book")}}</span>
+					<span class="text">Terminologies</span>
+				</a>
+			</li>
+
+			<li class="list">
+				<a href="{{ url_for('tips') }}">
+					<span class="icon">{{font_awesome.render_icon("fas fa-shield")}}</span>
+					<span class="text">Safety Tips</span>
+				</a>
+			</li>
+		</ul>
+ </nav>
+</main>
+
+<script type="text/javascript" src="{{ url_for('static', filename='js/terms.js')}}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/navigation.js')}}"></script>
+
+{% endblock %}

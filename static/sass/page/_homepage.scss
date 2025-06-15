@@ -1,0 +1,50 @@
+a {
+  
+  color: $foreground-dark;
+  
+	.logo-hp {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		color: $foreground-dark;
+    margin-top: 22rem;
+
+		img {
+			width: 50%;
+		}
+	}
+
+  .tap {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
+    p {
+      text-align: center;
+      padding-bottom: 10rem;
+      opacity: 0.5;
+      animation: blink 2s infinite;
+      font-size: 1.2rem;
+    }
+  }
+
+}
+
+@keyframes blink {
+	50% {
+		color: transparent;
+	}
+}
+
+@media (min-width: 660px) {
+  a {
+    .logo-hp {
+      img {
+        width: 30%;
+      }
+    }
+  }
+}

@@ -1,0 +1,274 @@
+{% extends 'base.html' %}
+{% block head %}
+<title>
+ {% if exercise == "barbell_curl" %}
+  Barbell Bicep Curl
+ {% elif exercise == "dumbbell_bicep_curl" %}
+  DB Bicep Curl
+ {% elif exercise == "bench_press" %}
+  Bench Press
+ {% elif exercise == "dumbbell_bench_press" %}
+  DB Bench Press
+ {% elif exercise == "barbell_press" %}
+  Barbell Press
+ {% elif exercise == "dumbbell_press" %}
+  DB Press
+ {% elif exercise == "lateral_raises" %}
+  Lateral Raises
+ {% elif exercise == "pull_ups" %}
+  Pull Ups
+ {% elif exercise == "barbell_rows" %}
+  Barbell Rows
+ {% elif exercise == "squat" %}
+  Squat
+ {% elif exercise == "deadlift" %}
+  Deadlift
+ {% endif %}
+</title>
+{% endblock %}
+
+{% block body %}
+
+{% include 'tutorial.html' %}
+
+<div class="content content-video-feed container">
+ <div class="video-left">
+  <div class="exercise-header">
+   <h2 class="exercise">
+    {% if exercise == "barbell_curl" %}
+     Barbell Bicep Curl
+    {% elif exercise == "dumbbell_bicep_curl" %}
+     DB Bicep Curl
+    {% elif exercise == "bench_press" %}
+     Bench Press
+    {% elif exercise == "dumbbell_bench_press" %}
+     DB Bench Press
+    {% elif exercise == "barbell_press" %}
+     Barbell Press
+    {% elif exercise == "dumbbell_press" %}
+     DB Press
+    {% elif exercise == "lateral_raises" %}
+     Lateral Raises
+    {% elif exercise == "pull_ups" %}
+     Pull Ups
+    {% elif exercise == "barbell_rows" %}
+     Barbell Rows
+    {% elif exercise == "squat" %}
+     Squat
+    {% elif exercise == "deadlift" %}
+     Deadlift
+    {% endif %}
+   </h2>
+
+   <div class="nnnnnnn">
+    <div class="pcr">
+     <div class="label-with-info">
+      <div class="label-with-info-header">
+       <div class="tooltip-container">
+        <span class="tooltip-icon"> 
+         {{ font_awesome.render_icon("fas fa-circle-info") }} 
+        </span>
+
+        <div class="tooltip">
+         You can replay the tutorial video for the exercise using this button.
+        </div>
+       </div>
+      </div>
+     </div>
+
+     <button class="btn" id="btn-tutorial">
+      {{ font_awesome.render_icon("far fa-circle-play") }} Tutorial
+     </button>
+    </div>
+
+    <div class="stats-buttons">
+     <div class="btn-add">
+      <a href="{{ url_for('stats', exercise=exercise) }}"> 
+       {{ font_awesome.render_icon("fas fa-book")}} 
+      </a>
+     </div>
+
+     <div class="btn-add">
+      <a class="btn-save"> {{font_awesome.render_icon("fas fa-plus")}} </a>
+     </div>
+
+     <div class="popup-save">
+      <div class="popup-save-container">
+       <h2>Save session?</h2>
+
+       <div class="btn-yesno">
+        <a class="save-close">No</a>
+        <a class="save-save" href="{{ url_for('save', exercise=exercise) }}
+          ">
+         Yes
+        </a>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+
+  <div class="camera">
+   <div class="video-container">
+    <img src="{{ url_for('video', exercise=exercise) }}" />
+   </div>
+
+   <div class="start-pos">
+    <div class="start-msg">
+     <p>Get yourself ready and press the play button to start</p>
+    </div>
+   </div>
+
+   <div class="pause-pos">
+    <button class="btn-ps" id="btn-pause">
+     {{font_awesome.render_icon("fas fa-play")}}
+    </button>
+   </div>
+  </div>
+ </div>
+
+ <div class="video-right">
+  <div class="analysis">
+   <div class="analysis-container">
+    <h3>Form Analysis</h3>
+
+    <div class="analysis-top">
+     <div class="label-with-info">
+      <div class="label-with-info-header">
+       <h2>Stage</h2>
+
+       <div class="tooltip-container">
+        <span class="tooltip-icon"> {{font_awesome.render_icon("fas fa-circle-info")}} </span>
+
+        <div class="tooltip">
+         This shows what part/half of the exercise you are in. It is important to know how you should continue
+         with your exercise so pay attention what part/half you are in.
+        </div>
+       </div>
+      </div>
+
+      <h2 class="bluebg" id="stage">up</h2>
+     </div>
+
+     <div class="label-with-info">
+      <div class="label-with-info-header">
+       <h2>Rep Count</h2>
+
+       <div class="tooltip-container">
+        <span class="tooltip-icon"> {{font_awesome.render_icon("fas fa-circle-info")}} </span>
+        <div class="tooltip">
+         This shows how many repetitions you have performed. To have a good gauge on how hard you have worked
+         you should count your repetitions.
+        </div>
+       </div>
+      </div>
+      <h2 class="bluebg"><span id="reps-count">0</span></h2>
+     </div>
+    </div>
+
+    <div class="analysis-bottom">
+     <div class="label-with-info">
+      <div class="label-with-info-header">
+       <h2>
+        {% if exercise == "squat" or exercise == "deadlift" %}
+         Knee Distance
+        {% else %}
+         Wrist Distance
+        {% endif %}
+       </h2>
+
+       <div class="tooltip-container">
+        <span class="tooltip-icon"> {{font_awesome.render_icon("fas fa-circle-info")}} </span>
+        <div class="tooltip">
+         This shows how far apart or near your wrists are. Your wrists must neither be too narrow or too wide
+         apart. Look to the right to see a numerical representation the proper distance.
+        </div>
+       </div>
+      </div>
+      {% if exercise == "squat" or exercise == "deadlift" %}
+       <h2 class="bluebg" id="knees-distance-status">neutral</h2>
+      {% else %}
+       <h2 class="bluebg" id="wrists-distance-status">neutral</h2>
+      {% endif %}
+     </div>
+
+     <div class="label-with-info">
+      <div class="label-with-info-header">
+       <h2>
+        {% if exercise == "squat" or exercise == "deadlift" %}
+         Ankle Distance
+        {% else %}
+         Elbow Distance
+        {% endif %}
+       </h2>
+
+       <div class="tooltip-container">
+        <span class="tooltip-icon"> {{font_awesome.render_icon("fas fa-circle-info")}} </span>
+        <div class="tooltip">
+         This shows how far apart or near your elbows are. Your elbows must neither be too narrow or too wide
+         apart. Look to the right to see a numerical representation the proper distance.
+        </div>
+       </div>
+      </div>
+      {% if exercise == "squat" or exercise == "deadlift" %}
+       <h2 class="bluebg" id="ankles-distance-status">neutral</h2>
+      {% else %}
+       <h2 class="bluebg" id="elbows-distance-status">neutral</h2>
+      {% endif %}
+     </div>
+    </div>
+   </div>
+  </div>
+
+  <div class="critique">
+   <div class="critique-container">
+    <div class="critique-container-text">
+     <div class="label-with-info label-critique">
+      <div class="label-with-info-header">
+       <h2>Feedback</h2>
+
+       <div class="tooltip-container">
+        <span class="tooltip-icon"> {{font_awesome.render_icon("fas fa-circle-info")}} </span>
+        <div class="tooltip">
+         This shows the critique of your form. It tells you how to ensure that your workout remains safe and
+         effective.
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+    <p><span id="critique-text">No critique yet</span></p>
+   </div>
+  </div>
+ </div>
+</div>
+
+<script type="text/javascript" src="{{ url_for('static', filename='js/toggle_pause.js')}}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/tutorial_popup.js')}}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/save-exercise.js')}}"></script>
+
+{% if exercise == "barbell_curl" %}
+ <script type="text/javascript" src="../static/js/fetch_exercise_data.js" data-param1="barbell_curl"></script>
+{% elif exercise == "dumbbell_bicep_curl" %}
+ <script type="text/javascript" src="../static/js/fetch_exercise_data.js" data-param1="dumbbell_bicep_curl"></script>
+{% elif exercise == "bench_press" %}
+ <script type="text/javascript" src="../static/js/fetch_exercise_data.js" data-param1="bench_press"></script>
+{% elif exercise == "dumbbell_bench_press" %}
+ <script type="text/javascript" src="../static/js/fetch_exercise_data.js" data-param1="dumbbell_bench_press"></script>
+{% elif exercise == "barbell_press" %}
+ <script type="text/javascript" src="../static/js/fetch_exercise_data.js" data-param1="barbell_press"></script>
+{% elif exercise == "dumbbell_press" %}
+ <script type="text/javascript" src="../static/js/fetch_exercise_data.js" data-param1="dumbbell_press"></script>
+{% elif exercise == "lateral_raises" %}
+ <script type="text/javascript" src="../static/js/fetch_exercise_data.js" data-param1="lateral_raises"></script>
+{% elif exercise == "pull_ups" %}
+ <script type="text/javascript" src="../static/js/fetch_exercise_data.js" data-param1="pull_ups"></script>
+{% elif exercise == "barbell_rows" %}
+ <script type="text/javascript" src="../static/js/fetch_exercise_data.js" data-param1="barbell_rows"></script>
+{% elif exercise == "squat" %}
+ <script type="text/javascript" src="../static/js/fetch_exercise_data.js" data-param1="squat"></script>
+{% elif exercise == "deadlift" %}
+ <script type="text/javascript" src="../static/js/fetch_exercise_data.js" data-param1="deadlift"></script>
+{% endif %}
+{% endblock %}

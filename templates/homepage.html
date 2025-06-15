@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>SpotMe</title>
+	<link rel="icon" href="{{ url_for('static', filename='images/icons/tab-icon.png')}}" />
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
+</head>
+
+<body>
+	<a href="{{ url_for('disclaimer') }}">
+		<div class="tap">
+			<div class="logo-hp">
+				<img src="{{ url_for('static', filename='images/icons/spotme-icon-dark.png')}}" alt="" />
+			</div>
+      
+      <p></p>
+
+			<p>Tap anywhere to continue</p>
+		</div>
+	</a>
+</body>
+
+</html>

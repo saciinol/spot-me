@@ -1,0 +1,788 @@
+<div class="centerer-tutorial">
+  <div class="tutorial">
+   <div class="tutorial-container">
+    <div class="tutorial-header">
+     <h2>
+      {% if exercise == "barbell_curl" %}
+       Barbell Bicep Curl Tutorial
+      {% elif exercise == "dumbbell_bicep_curl" %}
+       DB Bicep Curl Tutorial
+      {% elif exercise == "bench_press" %}
+       Bench Press Tutorial
+      {% elif exercise == "dumbbell_bench_press" %}
+       DB Bench Press Tutorial
+      {% elif exercise == "barbell_press" %}
+       Barbell Press Tutorial
+      {% elif exercise == "dumbbell_press" %}
+       DB Press Tutorial
+      {% elif exercise == "lateral_raises" %}
+       Lateral Raises Tutorial
+      {% elif exercise == "pull_ups" %}
+       Pull Ups Tutorial
+      {% elif exercise == "barbell_rows" %}
+       Barbell Rows Tutorial
+      {% elif exercise == "squat" %}
+       Squat Tutorial
+      {% elif exercise == "deadlift" %}
+       Deadlift Tutorial
+      {% endif %}
+     </h2>
+ 
+     <i class="tutorial-close" id="btn-tutorial-close">
+      {{ font_awesome.render_icon("fas fa-xmark fa-2xl") }}
+     </i>
+    </div>
+ 
+    <div id="tutorial-video">
+     {% if exercise == "barbell_curl" %}
+      <video controls muted id="actual-video">
+       <source src="{{ url_for('static', filename='videos/barbell-curl.mp4') }}" type="video/mp4" />
+      </video>
+     {% elif exercise == "dumbbell_bicep_curl" %}
+      <video controls muted id="actual-video">
+       <source src="{{ url_for('static', filename='videos/dumbbell-curl.mp4') }}" type="video/mp4" />
+      </video>
+     {% elif exercise == "bench_press" %}
+      <video controls muted id="actual-video">
+       <source src="{{ url_for('static', filename='videos/bench-press.mp4') }}" type="video/mp4" />
+      </video>
+     {% elif exercise == "dumbbell_bench_press" %}
+      <video controls muted id="actual-video">
+       <source src="{{ url_for('static', filename='videos/dumbbell-bench-press.mp4') }}" type="video/mp4" />
+      </video>
+     {% elif exercise == "barbell_press" %}
+      <video controls muted id="actual-video">
+       <source src="{{ url_for('static', filename='videos/barbell-press.mp4') }}" type="video/mp4" />
+      </video>
+     {% elif exercise == "dumbbell_press" %}
+      <video controls muted id="actual-video">
+       <source src="{{ url_for('static', filename='videos/dumbbell-press.mp4') }}" type="video/mp4" />
+      </video>
+     {% elif exercise == "lateral_raises" %}
+      <video controls muted id="actual-video">
+       <source src="{{ url_for('static', filename='videos/lateral-raises.mp4') }}" type="video/mp4" />
+      </video>
+     {% elif exercise == "pull_ups" %}
+      <video controls muted id="actual-video">
+       <source src="{{ url_for('static', filename='videos/pull-ups.mp4') }}" type="video/mp4" />
+      </video>
+     {% elif exercise == "barbell_rows" %}
+      <video controls muted id="actual-video">
+       <source src="{{ url_for('static', filename='videos/barbell-rows.mp4') }}" type="video/mp4" />
+      </video>
+     {% elif exercise == "squat" %}
+      <video controls muted id="actual-video">
+       <source src="{{ url_for('static', filename='videos/squat.mp4') }}" type="video/mp4" />
+      </video>
+     {% elif exercise == "deadlift" %}
+      <video controls muted id="actual-video">
+       <source src="{{ url_for('static', filename='videos/deadlift.mp4') }}" type="video/mp4" />
+      </video>
+     {% endif %}
+    </div>
+ 
+    <div>
+     {% if exercise == "bench_press" %}
+      <div class="terms-tips">
+       <h3 class="btn-terms">Step 1
+         <span class="chevron-down chevron-step1">{{ font_awesome.render_icon("fas fa-chevron-down") }}</span>
+         <span class="chevron-up chevron-step1">{{ font_awesome.render_icon("fas fa-chevron-up") }}</span>
+       </h3>
+ 
+       <div class="terms-content">
+        <hr />
+ 
+        <img src="{{ url_for('static', filename='images/tutorial/bench-press-step1.jpg')}}" />
+ 
+        <p>
+         Lie back on a flat bench holding a barbell in the rack above you with a shoulder-width, overhand grip.
+        </p>
+       </div>
+      </div>
+ 
+      <div class="terms-tips">
+       <h3 class="btn-terms">Step 2
+         <span class="chevron-down">{{ font_awesome.render_icon("fas fa-chevron-down") }}</span>
+         <span class="chevron-up">{{ font_awesome.render_icon("fas fa-chevron-up") }}</span>
+       </h3>
+ 
+       <div class="terms-content">
+        <hr />
+ 
+        <img src="{{ url_for('static', filename='images/tutorial/bench-press-step2.jpg')}}" />
+ 
+        <p>
+         Unrack the barbell by lifting it up and level it with the top of your chest.
+        </p>
+       </div>
+      </div>
+ 
+      <div class="terms-tips">
+       <h3 class="btn-terms">Step 3
+         <span class="chevron-down">{{ font_awesome.render_icon("fas fa-chevron-down") }}</span>
+         <span class="chevron-up">{{ font_awesome.render_icon("fas fa-chevron-up") }}</span>
+       </h3>
+ 
+       <div class="terms-content">
+        <hr />
+ 
+        <img src="{{ url_for('static', filename='images/tutorial/bench-press-step3.jpg')}}" />
+ 
+        <p>
+         Breathe in and lower the bar slowly until it skims the middle of your chest.
+        </p>
+       </div>
+      </div>
+ 
+      <div class="terms-tips">
+       <h3 class="btn-terms">Step 4
+         <span class="chevron-down">{{ font_awesome.render_icon("fas fa-chevron-down") }}</span>
+         <span class="chevron-up">{{ font_awesome.render_icon("fas fa-chevron-up") }}</span>
+       </h3>
+ 
+       <div class="terms-content">
+        <hr />
+ 
+        <img src="{{ url_for('static', filename='images/tutorial/bench-press-step4.jpg')}}" />
+ 
+        <p>
+         Push the bar back to the starting position explosively as you breathe out.
+        </p>
+       </div>
+      </div>
+     {% elif exercise == "dumbbell_bench_press" %}
+      <div class="terms-tips">
+       <h3 class="btn-terms">Step 1
+         <span class="chevron-down chevron-step1">{{ font_awesome.render_icon("fas fa-chevron-down") }}</span>
+         <span class="chevron-up chevron-step1">{{ font_awesome.render_icon("fas fa-chevron-up") }}</span>
+       </h3>
+ 
+       <div class="terms-content">
+        <hr />
+ 
+        <img src="{{ url_for('static', filename='images/tutorial/dumbbell-bench-press-step1.jpg')}}" />
+ 
+        <p>
+         Lie flat on back on a flat bench and hold one dumbbell in each hand with hands shoulder width apart.
+        </p>
+       </div>
+      </div>
+ 
+      <div class="terms-tips">
+       <h3 class="btn-terms">Step 2
+         <span class="chevron-down">{{ font_awesome.render_icon("fas fa-chevron-down") }}</span>
+         <span class="chevron-up">{{ font_awesome.render_icon("fas fa-chevron-up") }}</span>
+       </h3>
+ 
+       <div class="terms-content">
+        <hr />
+ 
+        <img src="{{ url_for('static', filename='images/tutorial/dumbbell-bench-press-step2.jpg')}}" />
+ 
+        <p>
+         Lower the dumbbells down to chest level keeping them shoulder width apart.
+        </p>
+       </div>
+      </div>
+ 
+      <div class="terms-tips">
+       <h3 class="btn-terms">Step 3
+         <span class="chevron-down">{{ font_awesome.render_icon("fas fa-chevron-down") }}</span>
+         <span class="chevron-up">{{ font_awesome.render_icon("fas fa-chevron-up") }}</span>
+       </h3>
+ 
+       <div class="terms-content">
+        <hr />
+ 
+        <img src="{{ url_for('static', filename='images/tutorial/dumbbell-bench-press-step3.png')}}" />
+ 
+        <p>
+         Push the dumbbells straight up into the air in full extension and touch them.
+        </p>
+       </div>
+      </div>
+     {% elif exercise == "pull_ups" %}
+      <div class="terms-tips">
+       <h3 class="btn-terms">Step 1
+         <span class="chevron-down chevron-step1">{{ font_awesome.render_icon("fas fa-chevron-down") }}</span>
+         <span class="chevron-up chevron-step1">{{ font_awesome.render_icon("fas fa-chevron-up") }}</span>
+       </h3>
+ 
+       <div class="terms-content">
+        <hr />
+ 
+        <img src="{{ url_for('static', filename='images/tutorial/pull-ups-step1.jpg')}}" />
+ 
+        <p>
+         Grab the pullup bar with your palms down.
+        </p>
+       </div>
+      </div>
+ 
+      <div class="terms-tips">
+       <h3 class="btn-terms">Step 2
+         <span class="chevron-down">{{ font_awesome.render_icon("fas fa-chevron-down") }}</span>
+         <span class="chevron-up">{{ font_awesome.render_icon("fas fa-chevron-up") }}</span>
+       </h3>
+ 
+       <div class="terms-content">
+        <hr />
+ 
+        <img src="{{ url_for('static', filename='images/tutorial/pull-ups-step2.jpg')}}" />
+ 
+        <p>
+         Hang to the pullup-bar with straight arms and your legs off the floor.
+        </p>
+       </div>
+      </div>
+ 
+      <div class="terms-tips">
+       <h3 class="btn-terms">Step 3
+         <span class="chevron-down">{{ font_awesome.render_icon("fas fa-chevron-down") }}</span>
+         <span class="chevron-up">{{ font_awesome.render_icon("fas fa-chevron-up") }}</span>
+       </h3>
+ 
+       <div class="terms-content">
+        <hr />
+ 
+        <img src="{{ url_for('static', filename='images/tutorial/pull-ups-step3.jpg')}}" />
+ 
+        <p>
+         Pull yourself up by pulling your elbows down to the floor.
+        </p>
+       </div>
+      </div>
+ 
+      <div class="terms-tips">
+       <h3 class="btn-terms">Step 4
+         <span class="chevron-down">{{ font_awesome.render_icon("fas fa-chevron-down") }}</span>
+         <span class="chevron-up">{{ font_awesome.render_icon("fas fa-chevron-up") }}</span>
+       </h3>
+ 
+       <div class="terms-content">
+        <hr />
+ 
+        <img src="{{ url_for('static', filename='images/tutorial/pull-ups-step4.jpg')}}" />
+ 
+        <p>
+         Go all the way up until your chin passes the bar.
+        </p>
+       </div>
+      </div>
+ 
+      <div class="terms-tips">
+       <h3 class="btn-terms">Step 5
+         <span class="chevron-down">{{ font_awesome.render_icon("fas fa-chevron-down") }}</span>
+         <span class="chevron-up">{{ font_awesome.render_icon("fas fa-chevron-up") }}</span>
+       </h3>
+ 
+       <div class="terms-content">
+        <hr />
+ 
+        <img src="{{ url_for('static', filename='images/tutorial/pull-ups-step5.png')}}" />
+ 
+        <p>
+         Lower yourself until your arms are straight.
+        </p>
+       </div>
+      </div>
+     {% elif exercise == "barbell_rows" %}
+      <div class="terms-tips">
+       <h3 class="btn-terms">Step 1
+         <span class="chevron-down chevron-step1">{{ font_awesome.render_icon("fas fa-chevron-down") }}</span>
+         <span class="chevron-up chevron-step1">{{ font_awesome.render_icon("fas fa-chevron-up") }}</span>
+       </h3>
+ 
+       <div class="terms-content">
+        <hr />
+ 
+        <img src="{{ url_for('static', filename='images/tutorial/barbell-rows-step1.png')}}" />
+ 
+        <p>
+         Stand with your mid-foot under the bar.
+        </p>
+       </div>
+      </div>
+ 
+      <div class="terms-tips">
+       <h3 class="btn-terms">Step 2
+         <span class="chevron-down">{{ font_awesome.render_icon("fas fa-chevron-down") }}</span>
+         <span class="chevron-up">{{ font_awesome.render_icon("fas fa-chevron-up") }}</span>
+       </h3>
+ 
+       <div class="terms-content">
+        <hr />
+ 
+        <img src="{{ url_for('static', filename='images/tutorial/barbell-rows-step2.png')}}" />
+ 
+        <p>
+         Bend over and grab the bar with a grip slightly wider than shoulder width.
+        </p>
+       </div>
+      </div>
+ 
+      <div class="terms-tips">
+       <h3 class="btn-terms">Step 3
+         <span class="chevron-down">{{ font_awesome.render_icon("fas fa-chevron-down") }}</span>
+         <span class="chevron-up">{{ font_awesome.render_icon("fas fa-chevron-up") }}</span>
+       </h3>
+ 
+       <div class="terms-content">
+        <hr />
+ 
+        <img src="{{ url_for('static', filename='images/tutorial/barbell-rows-step3.png')}}" />
+ 
+        <p>
+         Lift your chest, straighten your back, and lift the bar at shin level.
+        </p>
+       </div>
+      </div>
+ 
+      <div class="terms-tips">
+       <h3 class="btn-terms">Step 4
+         <span class="chevron-down">{{ font_awesome.render_icon("fas fa-chevron-down") }}</span>
+         <span class="chevron-up">{{ font_awesome.render_icon("fas fa-chevron-up") }}</span>
+       </h3>
+ 
+       <div class="terms-content">
+        <hr />
+ 
+        <img src="{{ url_for('static', filename='images/tutorial/barbell-rows-step4.png')}}" />
+ 
+        <p>
+         Pull the bar against your lower chest.
+        </p>
+       </div>
+      </div>
+ 
+      <div class="terms-tips">
+       <h3 class="btn-terms">Step 5
+         <span class="chevron-down">{{ font_awesome.render_icon("fas fa-chevron-down") }}</span>
+         <span class="chevron-up">{{ font_awesome.render_icon("fas fa-chevron-up") }}</span>
+       </h3>
+ 
+       <div class="terms-content">
+        <hr />
+ 
+        <img src="{{ url_for('static', filename='images/tutorial/barbell-rows-step5.png')}}" />
+ 
+        <p>
+         Lower the bar and repeat.
+        </p>
+       </div>
+      </div>
+     {% elif exercise == "barbell_press" %}
+      <div class="terms-tips">
+       <h3 class="btn-terms">Step 1
+         <span class="chevron-down chevron-step1">{{ font_awesome.render_icon("fas fa-chevron-down") }}</span>
+         <span class="chevron-up chevron-step1">{{ font_awesome.render_icon("fas fa-chevron-up") }}</span>
+       </h3>
+ 
+       <div class="terms-content">
+        <hr />
+ 
+        <img src="{{ url_for('static', filename='images/tutorial/barbell-press-step1.jpg')}}" />
+ 
+        <p>
+         Stand with the bar on your front shoulders, and your hands next to your shoulders.
+        </p>
+       </div>
+      </div>
+ 
+      <div class="terms-tips">
+       <h3 class="btn-terms">Step 2
+         <span class="chevron-down">{{ font_awesome.render_icon("fas fa-chevron-down") }}</span>
+         <span class="chevron-up">{{ font_awesome.render_icon("fas fa-chevron-up") }}</span>
+       </h3>
+ 
+       <div class="terms-content">
+        <hr />
+ 
+        <img src="{{ url_for('static', filename='images/tutorial/barbell-press-step2.jpg')}}" />
+ 
+        <p>
+         Press the bar over your head, until it’s balanced over your shoulders and mid-foot.
+        </p>
+       </div>
+      </div>
+ 
+      <div class="terms-tips">
+       <h3 class="btn-terms">Step 3
+         <span class="chevron-down">{{ font_awesome.render_icon("fas fa-chevron-down") }}</span>
+         <span class="chevron-up">{{ font_awesome.render_icon("fas fa-chevron-up") }}</span>
+       </h3>
+ 
+       <div class="terms-content">
+        <hr />
+ 
+        <img src="{{ url_for('static', filename='images/tutorial/barbell-press-step3.jpg')}}" />
+ 
+        <p>
+         Lower the bar back down to your front shoulders and repeat.
+        </p>
+       </div>
+      </div>
+     {% elif exercise == "dumbbell_press" %}
+      <div class="terms-tips">
+       <h3 class="btn-terms">Step 1
+         <span class="chevron-down chevron-step1">{{ font_awesome.render_icon("fas fa-chevron-down") }}</span>
+         <span class="chevron-up chevron-step1">{{ font_awesome.render_icon("fas fa-chevron-up") }}</span>
+       </h3>
+ 
+       <div class="terms-content">
+        <hr />
+ 
+        <img src="{{ url_for('static', filename='images/tutorial/dumbbell_press-step1.png')}}" />
+ 
+        <p>
+         Stand with the dumbbell on your front shoulders, and your hands next to your shoulders.
+        </p>
+       </div>
+      </div>
+ 
+      <div class="terms-tips">
+       <h3 class="btn-terms">Step 2
+         <span class="chevron-down">{{ font_awesome.render_icon("fas fa-chevron-down") }}</span>
+         <span class="chevron-up">{{ font_awesome.render_icon("fas fa-chevron-up") }}</span>
+       </h3>
+ 
+       <div class="terms-content">
+        <hr />
+ 
+        <img src="{{ url_for('static', filename='images/tutorial/dumbbell_press-step2.png')}}" />
+ 
+        <p>
+         Press the dumbbell over your head, until it’s balanced over your shoulders and mid-foot.
+        </p>
+       </div>
+      </div>
+ 
+      <div class="terms-tips">
+       <h3 class="btn-terms">Step 3
+         <span class="chevron-down">{{ font_awesome.render_icon("fas fa-chevron-down") }}</span>
+         <span class="chevron-up">{{ font_awesome.render_icon("fas fa-chevron-up") }}</span>
+       </h3>
+ 
+       <div class="terms-content">
+        <hr />
+ 
+        <img src="{{ url_for('static', filename='images/tutorial/dumbbell_press-step3.png')}}" />
+ 
+        <p>
+         Lower the dumbbells back down to your front shoulders and repeat.
+        </p>
+       </div>
+      </div>
+     {% elif exercise == "lateral_raises" %}
+      <div class="terms-tips">
+       <h3 class="btn-terms">Step 1
+         <span class="chevron-down chevron-step1">{{ font_awesome.render_icon("fas fa-chevron-down") }}</span>
+         <span class="chevron-up chevron-step1">{{ font_awesome.render_icon("fas fa-chevron-up") }}</span>
+       </h3>
+ 
+       <div class="terms-content">
+        <hr />
+ 
+        <img src="{{ url_for('static', filename='images/tutorial/lateral-raises-step1.jpg')}}" />
+ 
+        <p>
+         Grab a set of dumbbells and stand straight.
+        </p>
+       </div>
+      </div>
+ 
+      <div class="terms-tips">
+       <h3 class="btn-terms">Step 2
+         <span class="chevron-down">{{ font_awesome.render_icon("fas fa-chevron-down") }}</span>
+         <span class="chevron-up">{{ font_awesome.render_icon("fas fa-chevron-up") }}</span>
+       </h3>
+ 
+       <div class="terms-content">
+        <hr />
+ 
+        <img src="{{ url_for('static', filename='images/tutorial/lateral-raises-step2.jpg')}}" />
+ 
+        <p>
+         With your palms facing down, lift the dumbbells and raise your arms out to the sides.
+        </p>
+       </div>
+      </div>
+ 
+      <div class="terms-tips">
+       <h3 class="btn-terms">Step 3
+         <span class="chevron-down">{{ font_awesome.render_icon("fas fa-chevron-down") }}</span>
+         <span class="chevron-up">{{ font_awesome.render_icon("fas fa-chevron-up") }}</span>
+       </h3>
+ 
+       <div class="terms-content">
+        <hr />
+ 
+        <img src="{{ url_for('static', filename='images/tutorial/lateral-raises-step3.jpg')}}" />
+ 
+        <p>
+         Once your elbows are at shoulder height, pause, and then slowly lower the arms back to the initial position,
+         repeat.
+        </p>
+       </div>
+      </div>
+     {% elif exercise == "barbell_curl" %}
+      <div class="terms-tips">
+       <h3 class="btn-terms">Step 1
+         <span class="chevron-down chevron-step1">{{ font_awesome.render_icon("fas fa-chevron-down") }}</span>
+         <span class="chevron-up chevron-step1">{{ font_awesome.render_icon("fas fa-chevron-up") }}</span>
+       </h3>
+ 
+       <div class="terms-content">
+        <hr />
+ 
+        <img src="{{ url_for('static', filename='images/tutorial/barbell-curl-step1.jpg')}}" />
+ 
+        <p>
+         Grasp a barbell with an underhand grip and stand straight.
+        </p>
+       </div>
+      </div>
+ 
+      <div class="terms-tips">
+       <h3 class="btn-terms">Step 2
+         <span class="chevron-down">{{ font_awesome.render_icon("fas fa-chevron-down") }}</span>
+         <span class="chevron-up">{{ font_awesome.render_icon("fas fa-chevron-up") }}</span>
+       </h3>
+ 
+       <div class="terms-content">
+        <hr />
+ 
+        <img src="{{ url_for('static', filename='images/tutorial/barbell-curl-step2.jpg')}}" />
+ 
+        <p>
+         Bending at the elbows, slowly curl the weight up as far as possible.
+        </p>
+       </div>
+      </div>
+ 
+      <div class="terms-tips">
+       <h3 class="btn-terms">Step 3
+         <span class="chevron-down">{{ font_awesome.render_icon("fas fa-chevron-down") }}</span>
+         <span class="chevron-up">{{ font_awesome.render_icon("fas fa-chevron-up") }}</span>
+       </h3>
+ 
+       <div class="terms-content">
+        <hr />
+ 
+        <img src="{{ url_for('static', filename='images/tutorial/barbell-curl-step3.jpg')}}" />
+ 
+        <p>
+         Squeeze the biceps, and then slowly lower the weight back to the starting position.
+        </p>
+       </div>
+      </div>
+     {% elif exercise == "dumbbell_bicep_curl" %}
+      <div class="terms-tips">
+       <h3 class="btn-terms">Step 1
+         <span class="chevron-down chevron-step1">{{ font_awesome.render_icon("fas fa-chevron-down") }}</span>
+         <span class="chevron-up chevron-step1">{{ font_awesome.render_icon("fas fa-chevron-up") }}</span>
+       </h3>
+ 
+       <div class="terms-content">
+        <hr />
+ 
+        <img src="{{ url_for('static', filename='images/tutorial/dumbbell_bicep_curl_step1.jpg')}}" />
+ 
+        <p>
+         Stand straight with a dumbbell in each hand and hands by your sides.
+        </p>
+       </div>
+      </div>
+ 
+      <div class="terms-tips">
+       <h3 class="btn-terms">Step 2
+         <span class="chevron-down">{{ font_awesome.render_icon("fas fa-chevron-down") }}</span>
+         <span class="chevron-up">{{ font_awesome.render_icon("fas fa-chevron-up") }}</span>
+       </h3>
+ 
+       <div class="terms-content">
+        <hr />
+ 
+        <img src="{{ url_for('static', filename='images/tutorial/dumbbell_bicep_curl_step2.jpg')}}" />
+ 
+        <p>
+         Squeeze the biceps and lift the dumbbells. Keep the elbows close to your body.
+        </p>
+       </div>
+      </div>
+ 
+      <div class="terms-tips">
+       <h3 class="btn-terms">Step 3
+         <span class="chevron-down">{{ font_awesome.render_icon("fas fa-chevron-down") }}</span>
+         <span class="chevron-up">{{ font_awesome.render_icon("fas fa-chevron-up") }}</span>
+       </h3>
+ 
+       <div class="terms-content">
+        <hr />
+ 
+        <img src="{{ url_for('static', filename='images/tutorial/dumbbell_bicep_curl_step3.jpg')}}" />
+ 
+        <p>
+         Once the dumbbells are at shoulder level, slowly lower the arms to the starting position.
+        </p>
+       </div>
+      </div>
+     {% elif exercise == "squat" %}
+      <div class="terms-tips">
+       <h3 class="btn-terms">Step 1
+         <span class="chevron-down chevron-step1">{{ font_awesome.render_icon("fas fa-chevron-down") }}</span>
+         <span class="chevron-up chevron-step1">{{ font_awesome.render_icon("fas fa-chevron-up") }}</span>
+       </h3>
+ 
+       <div class="terms-content">
+        <hr />
+ 
+        <img src="{{ url_for('static', filename='images/tutorial/squat-step1.png')}}" />
+ 
+        <p>
+         Stand with the bar on your back, and your heels shoulder-width apart.
+        </p>
+       </div>
+      </div>
+ 
+      <div class="terms-tips">
+       <h3 class="btn-terms">Step 2
+         <span class="chevron-down">{{ font_awesome.render_icon("fas fa-chevron-down") }}</span>
+         <span class="chevron-up">{{ font_awesome.render_icon("fas fa-chevron-up") }}</span>
+       </h3>
+ 
+       <div class="terms-content">
+        <hr />
+ 
+        <img src="{{ url_for('static', filename='images/tutorial/squat-step2.png')}}" />
+ 
+        <p>
+         Bend your legs until your hips are lower than the top of your knees.
+        </p>
+       </div>
+      </div>
+ 
+      <div class="terms-tips">
+       <h3 class="btn-terms">Step 3
+         <span class="chevron-down">{{ font_awesome.render_icon("fas fa-chevron-down") }}</span>
+         <span class="chevron-up">{{ font_awesome.render_icon("fas fa-chevron-up") }}</span>
+       </h3>
+ 
+       <div class="terms-content">
+        <hr />
+ 
+        <img src="{{ url_for('static', filename='images/tutorial/squat-step3.png')}}" />
+ 
+        <p>
+         Squat back up by straightening your knees and hips.
+        </p>
+       </div>
+      </div>
+ 
+      <div class="terms-tips">
+       <h3 class="btn-terms">Step 4
+         <span class="chevron-down">{{ font_awesome.render_icon("fas fa-chevron-down") }}</span>
+         <span class="chevron-up">{{ font_awesome.render_icon("fas fa-chevron-up") }}</span>
+       </h3>
+ 
+       <div class="terms-content">
+        <hr />
+ 
+        <img src="{{ url_for('static', filename='images/tutorial/squat-step4.png')}}" />
+ 
+        <p>
+         Stand with your hips and knees locked at the top.
+        </p>
+       </div>
+      </div>
+     {% elif exercise == "deadlift" %}
+      <div class="terms-tips">
+       <h3 class="btn-terms">Step 1
+         <span class="chevron-down chevron-step1">{{ font_awesome.render_icon("fas fa-chevron-down") }}</span>
+         <span class="chevron-up chevron-step1">{{ font_awesome.render_icon("fas fa-chevron-up") }}</span>
+       </h3>
+ 
+       <div class="terms-content">
+        <hr />
+ 
+        <img src="{{ url_for('static', filename='images/tutorial/deadlift-step1.jpg')}}" />
+ 
+        <p>
+         Stand with your mid-foot under the barbell.
+        </p>
+       </div>
+      </div>
+ 
+      <div class="terms-tips">
+       <h3 class="btn-terms">Step 2
+         <span class="chevron-down">{{ font_awesome.render_icon("fas fa-chevron-down") }}</span>
+         <span class="chevron-up">{{ font_awesome.render_icon("fas fa-chevron-up") }}</span>
+       </h3>
+ 
+       <div class="terms-content">
+        <hr />
+ 
+        <img src="{{ url_for('static', filename='images/tutorial/deadlift-step2.jpg')}}" />
+ 
+        <p>
+         Bend over and grab the bar with a shoulder-width grip.
+        </p>
+       </div>
+      </div>
+ 
+      <div class="terms-tips">
+       <h3 class="btn-terms">Step 3
+         <span class="chevron-down">{{ font_awesome.render_icon("fas fa-chevron-down") }}</span>
+         <span class="chevron-up">{{ font_awesome.render_icon("fas fa-chevron-up") }}</span>
+       </h3>
+ 
+       <div class="terms-content">
+        <hr />
+ 
+        <img src="{{ url_for('static', filename='images/tutorial/deadlift-step3.jpg')}}" />
+ 
+        <p>
+         Bend your knees until your shins touch the bar.
+        </p>
+       </div>
+      </div>
+ 
+      <div class="terms-tips">
+       <h3 class="btn-terms">Step 4
+         <span class="chevron-down">{{ font_awesome.render_icon("fas fa-chevron-down") }}</span>
+         <span class="chevron-up">{{ font_awesome.render_icon("fas fa-chevron-up") }}</span>
+       </h3>
+ 
+       <div class="terms-content">
+        <hr />
+ 
+        <img src="{{ url_for('static', filename='images/tutorial/deadlift-step4.jpg')}}" />
+ 
+        <p>
+         Lift your chest up and straighten your lower back.
+        </p>
+       </div>
+      </div>
+ 
+      <div class="terms-tips">
+       <h3 class="btn-terms">Step 5
+         <span class="chevron-down">{{ font_awesome.render_icon("fas fa-chevron-down") }}</span>
+         <span class="chevron-up">{{ font_awesome.render_icon("fas fa-chevron-up") }}</span>
+       </h3>
+ 
+       <div class="terms-content">
+        <hr />
+ 
+        <img src="{{ url_for('static', filename='images/tutorial/deadlift-step5.jpg')}}" />
+ 
+        <p>
+         Take a big breath, hold it, and stand up with the weight.
+        </p>
+       </div>
+      </div>
+     {% endif %}
+    </div>
+   </div>
+  </div>
+ </div>
+ <script type="text/javascript" src="{{ url_for('static', filename='js/terms.js')}}"></script>

@@ -1,0 +1,59 @@
+{% extends 'base.html' %} {% block head %}
+<title>Safety Tips</title>
+{% endblock %} {% block body %}
+
+<main class="content container tt">
+	<div class="panel">
+    <div class="search-container">
+      <form action="{{ url_for('search_tips') }}" method="POST">
+        <input type="text" id="search" placeholder="Search"/>
+      </form>
+    </div>
+    
+		<p class="safety-terms-header">
+			Here are safety tips to ensure you stay out of danger when performing
+			strength exercises.
+		</p>
+
+		<div>
+			<ul id="tips-list" class="terminologies-safetytips"></ul>
+		</div>
+	</div>
+
+	<nav class="navigation">
+		<ul>
+			<li class="list">
+				<a href="{{ url_for('index') }}">
+					<span class="icon">{{font_awesome.render_icon("fas fa-house")}}</span>
+					<span class="text">Home</span>
+				</a>
+			</li>
+
+   <li class="list">
+    <a href="{{ url_for('categories') }}">
+     <span class="icon">{{font_awesome.render_icon("fas fa-dumbbell")}}</span>
+     <span class="text">Categories</span>
+    </a>
+   </li>
+
+			<li class="list">
+				<a href="{{ url_for('terminologies') }}">
+					<span class="icon">{{font_awesome.render_icon("fas fa-book")}}</span>
+					<span class="text">Terminologies</span>
+				</a>
+			</li>
+
+			<li class="list active">
+				<a href="{{ url_for('tips') }}">
+					<span class="icon">{{font_awesome.render_icon("fas fa-shield")}}</span>
+					<span class="text">Safety Tips</span>
+				</a>
+			</li>
+		</ul>
+	</nav>
+</main>
+
+<script type="text/javascript" src="{{ url_for('static', filename='js/search_tips.js')}}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/navigation.js')}}"></script>
+
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Chest</title>
+{% endblock %}
+
+{% block body %}
+<main class="content content-exercises container">
+ <h2>Chest</h2>
+
+ <div class="categories">
+  <a href="{{ url_for('bench_press') }}">
+   <div class="categories__item categories__item--bench-press">
+    <img src="{{ url_for('static', filename='images/tutorial/bench-press-step3.jpg')}}" />
+
+    <div class="image-overlay">
+     <p class="bpart">Bench Press</p>
+
+     <div class="categories-explanation">
+      <p class="bpart-bot">
+       Builds overall upper body strength by targeting the chest, shoulders,
+       and triceps with heavier loads.
+      </p>
+     </div>
+    </div>
+   </div>
+  </a>
+
+  <a href="{{ url_for('dumbbell_bench_press') }}">
+   <div class="categories__item categories__item--dumbbell-press">
+    <img src="{{ url_for('static', filename='images/tutorial/dumbbell-bench-press-step2.jpg')}}" />
+
+    <div class="image-overlay">
+     <p>Dumbbell Press</p>
+
+     <div class="categories-explanation">
+      <p class="bpart-bot">
+       Enhances chest development, stability, and muscle balance by allowing a
+       greater range of motion.
+      </p>
+     </div>
+    </div>
+   </div>
+  </a>
+ </div>
+</main>
+{% endblock %}

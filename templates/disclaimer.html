@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		{{ font_awesome.load_css() }}
+		<title>Health Disclaimer</title>
+		<link rel="icon" href="{{ url_for('static', filename='images/icons/tab-icon.png')}}" />
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
+	</head>
+
+	<body>
+		<div class="disc">
+			<div class="disc-content">
+				<h2><span>{{ font_awesome.render_icon("fas fa-triangle-exclamation") }}</span> Health Disclaimer</h2>
+
+        <br>
+
+				<p>
+					This app is intended for individuals who are in good physical condition for strength training.
+				</p>
+
+        <br>
+
+        <p>If you have any health concerns or physical limitations, we recommend checking with a medical professional before getting started.
+
+        </p>
+
+        <br>
+
+        <p>Strength training carries risk—lift smart, train safe, and know your limits.
+        </p>
+			</div>
+
+      <a href="{{ url_for('login') }}">I Understand</a>
+		</div>
+	</body>
+</html>

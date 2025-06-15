@@ -1,0 +1,152 @@
+.centerer-tutorial {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 100vw;
+	height: 100vh;
+	display: none;
+	justify-content: center;
+	align-items: center;
+}
+
+.tutorial {
+	display: none;
+	width: 359px;
+	height: 587px;
+	border-radius: 5px;
+	background-color: #282828;
+	color: $foreground-dark;
+	animation: popup 0.4s;
+	z-index: 5;
+	overflow-y: scroll;
+
+	.tutorial-container {
+		padding: 1em;
+
+		.tutorial-header {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-bottom: 1.5em;
+
+			.tutorial-close {
+				cursor: pointer;
+			}
+		}
+
+		.terms-tips {
+			padding: 1rem;
+			border: 1px solid #3d3d3d;
+			border-radius: 3px;
+			margin-bottom: 1rem;
+			cursor: pointer;
+
+      .chevron-step1 {
+        margin-left: 244px !important;
+        display: none;
+      }
+
+      .chevron-down {
+        margin-left: 240px;
+        display: inline;
+      }
+      
+      .chevron-down-toggled {
+        display: none;
+      }
+  
+      .chevron-up {
+        margin-left: 240px;
+        display: none;
+      }
+
+      .chevron-up-toggled {
+        display: inline;
+      }
+
+			hr {
+				border: 1px solid $accent-new;
+        margin-bottom: 12px;
+			}
+
+			p {
+        padding: .5em 0;
+				text-justify: inter-word;
+				color: light-dark($foreground-light, $foreground-dark);
+			}
+
+      img {
+        border-radius: 6px;
+      }
+		}
+
+		.terms-content {
+			visibility: hidden;
+			height: 0;
+			transform: translateY(0);
+			transition: all 200ms ease-out;
+		}
+
+		.terms-content-toggled {
+			display: block;
+			visibility: visible;
+			height: 100%;
+			transform: translateY(4%);
+		}
+
+	}
+}
+
+@keyframes popup {
+	0% {
+		transform: scale(0.3);
+	}
+	50% {
+		transform: scale(0.6);
+	}
+	60% {
+		transform: scale(0.9);
+	}
+	70% {
+		transform: scale(1);
+	}
+	80% {
+		transform: scale(1.1);
+	}
+	90% {
+		transform: scale(1.2);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+
+.tutorial-toggled {
+	display: block;
+}
+
+.centerer-tutorial-toggled {
+	display: flex;
+}
+
+@media (min-width: 580px) {
+	.tutorial {
+    width: 536px;
+
+    .tutorial-container {
+      .terms-tips {
+        .chevron-step1 {
+          margin-left: 406px !important;
+        }
+  
+        .chevron-down {
+          margin-left: 402px;
+        }
+        
+        .chevron-up {
+          margin-left: 402px;
+        }
+      }
+    }
+  }
+}

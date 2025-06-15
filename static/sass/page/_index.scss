@@ -1,0 +1,164 @@
+.terminologies-safetytips {
+	background: light-dark($background-light, $background-dark);
+
+	.terms-tips {
+		padding: 1rem;
+	  border: 1px solid #3d3d3d;
+		border-radius: 3px;
+		margin-bottom: 1rem;
+		cursor: pointer;
+
+		hr {
+			border: 1px solid $accent-new;
+		}
+
+		label {
+			padding-bottom: 0.5rem;
+			text-decoration: underline;
+			color: light-dark($foreground-light, $foreground-dark);
+		}
+
+		p {
+      padding: 0.5em 0;
+			text-justify: inter-word;
+			color: light-dark($foreground-light, $foreground-dark);
+		}
+
+		input[type='radio'] {
+			visibility: hidden;
+			height: 0;
+			width: 0;
+		}
+
+		.terms-content {
+			visibility: hidden;
+			height: 0;
+			transform: translateY(0);
+			transition: all 200ms ease-out;
+		}
+
+		.terms-content-toggled {
+			display: block;
+			visibility: visible;
+			height: 100%;
+			transform: translateY(9%);
+		}
+
+    .dropdown-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      span {
+        font-size: 1.6rem;
+      }
+    }
+
+    .termstips-chevron-down {
+      display: inline;
+    }
+
+    .termstips-chevron-up {
+      display: none;
+    }
+    
+    .termstips-chevron-down-toggled {
+      display: none;
+    }
+    
+    .termstips-chevron-up-toggled {
+      display: inline;
+    }
+	}
+}
+
+.panel {
+  background-color:$background-dark;
+
+	.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    position: fixed;
+    background-color:$background-dark;
+    left: 0;
+    z-index: 3;
+    // margin: 0 1rem;
+
+    form {
+  
+      input {
+        padding: 0.5rem 1rem;
+        font-size: 1.6rem;
+        outline: none;
+        border: solid 1px $foreground-dark;
+        background-color: $background-dark;
+        border-radius: 3px;
+        margin-top: 1rem;
+        width: 95vw;
+      }
+  
+      input[placeholder] {
+        color: $foreground-dark;
+      }
+    }
+  }
+
+  .safety-terms-header {
+    padding-top: 5rem;
+    padding-bottom: 1rem;
+  }
+}
+
+#terms-list {
+ margin-bottom: 2rem;
+}
+
+@media (min-width: 480px) {
+  .panel {
+    .search-container {
+      form {
+        input {
+          width: 99vw;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 1083px) {
+  .panel {
+    .search-container {
+      left: -1px;
+
+      form {
+        input {
+          width: 1072.9px;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 1497px) {
+  .panel {
+    .search-container {
+      left: 0px;
+
+      form {
+        input {
+          width: 1072.9px;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 1498px) {
+  .panel {
+    .search-container {
+      left: -7px;
+    }
+  }
+}

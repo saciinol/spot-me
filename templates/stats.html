@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ <meta charset="UTF-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ {{ font_awesome.load_css() }}
+ <link rel="icon" href="{{ url_for('static', filename='images/icons/tab-icon.png')}}" />
+ <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
+ <link rel="stylesheet" href="{{ 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css' }}"
+  integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+  crossorigin="anonymous" referrerpolicy="no-referrer" />
+ <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+ <title>
+  {% if exercise == "barbell_curl" %} Barbell Bicep Curl {% elif exercise ==
+  "dumbbell_bicep_curl" %} Dumbbell Bicep Curl {% elif exercise == "bench_press"
+  %} Bench Press {% elif exercise == "dumbbell_bench_press" %} Dumbbell
+  Bench Press {% elif exercise == "barbell_press" %} Barbell Press {% elif
+  exercise == "dumbbell_press" %} Dumbbell Press {% elif exercise ==
+  "lateral_raises" %} Lateral Raises {% elif exercise == "pull_ups" %} Pull
+  Ups {% elif exercise == "barbell_rows" %} Barbell Rows {% elif exercise ==
+  "squat" %} Squat {% elif exercise == "deadlift" %} Deadlift {% endif %}
+ </title>
+</head>
+
+<body class="body-stats">
+ <div id="overlay"></div>
+ {% include 'header.html' %}` {% include 'sidebar.html' %} {% include
+ 'instructions.html' %}
+
+ <main class="container stats-container">
+  <h2 class="exercise">
+   {% if exercise == "barbell_curl" %} Barbell Bicep Curl Statistics {%
+   elif exercise == "dumbbell_bicep_curl" %} Dumbbell Bicep Curl Statistics {%
+   elif exercise == "bench_press" %} Bench Press Statistics {% elif
+   exercise == "dumbbell_bench_press" %} Dumbbell Bench Press Statistics {%
+   elif exercise == "barbell_press" %} Barbell Press Statistics {% elif
+   exercise == "dumbbell_press" %} Dumbbell Press Statistics {% elif
+   exercise == "lateral_raises" %} Lateral Raises Statistics {% elif exercise ==
+   "pull_ups" %} Pull Ups Statistics {% elif exercise == "barbell_rows" %}
+   Barbell Rows Statistics {% elif exercise == "squat" %} Squat Statistics {% elif
+   exercise == "deadlift" %} Deadlift Statistics {% endif %}
+  </h2>
+
+  <div class="stats-pos">
+   <div class="stats-top">
+    <canvas id="statsChart"></canvas>
+    <select id="duration">
+     <option value="daily">Everyday</option>
+     <option value="weekly">This Week</option>
+     <option value="monthly">This Month</option>
+    </select>
+   </div>
+
+   <div class="stats-bottom">
+    <h2>Workouts</h2>
+
+    <div class="reps-list">
+     <ul>
+      {% for id, (date, reps) in workouts.items() %}
+       <li>
+        <a class="btn-delete">
+         {{font_awesome.render_icon("fas fa-trash")}}
+        </a>
+
+        <span>{{ date }}</span>
+        <span>
+         <i>Reps: {{ reps }}</i>
+
+         <div class="popup-delete">
+          <div class="popup-delete-container">
+           <h2>Delete set?</h2>
+
+           <div class="btn-yesno">
+            <a class="delete-close">No</a>
+            <button onclick="deleteSet('{{ id }}', '{{ exercise }}')" data-id="{{ id }}" data-exercise="{{ exercise }}"
+             class="delete-delete">
+             Yes
+            </button>
+           </div>
+          </div>
+         </div>
+        </span>
+       </li>
+      {% endfor %}
+     </ul>
+    </div>
+   </div>
+  </div>
+
+  <script>
+   const duration = document.querySelector("#duration");
+   const exercise = "{{ exercise }}";
+   const name = "{{ name_exercise }}";
+   let durationValue = "daily";
+   let chart;
+
+   function createChart(reps) {
+    const ctx = document.querySelector("#statsChart");
+    let labels = reps.length;
+
+    let colors = [];
+    for (let i = 0; i < reps.length; i++) {
+     if (i === 0 || reps[i] >= reps[i - 1]) {
+      colors.push("rgba(75, 192, 75, 0.7)");
+     } else {
+      colors.push("rgba(255, 99, 132, 0.7)");
+     }
+    }
+
+    if (chart) {
+     chart.destroy();
+    }
+
+    chart = new Chart(ctx, {
+     type: "line",
+     data: {
+      labels: Array(labels).fill(""),
+      datasets: [
+       {
+        label: name,
+        data: reps,
+        backgroundColor: colors,
+        borderColor: "#525252",
+        borderWidth: 2,
+        fill: false,
+       },
+      ],
+     },
+     options: {
+      responsive: true,
+      scales: {
+       y: {
+        title: { display: true, text: "Repetitions" },
+        beginAtZero: true,
+       },
+      },
+     },
+    });
+   }
+
+   function getProgress(exercise, durationValue) {
+    fetch(`/get_progress/${exercise}/${durationValue}`, {
+     method: "POST",
+    })
+     .then((response) => response.json())
+     .then((data) => {
+      const reps = data.reps;
+
+      createChart(reps);
+     });
+   }
+
+   duration.addEventListener("click", () => {
+    getProgress(exercise, durationValue = duration.value);
+   });
+
+   getProgress(exercise);
+  </script>
+ </main>
+</body>
+
+<script type="text/javascript" src="{{ url_for('static', filename='js/terms.js')}}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/navigation.js')}}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/sidebar_toggle.js')}}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/delete-popup.js')}}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/delete_set.js')}}"></script>
+
+</html>

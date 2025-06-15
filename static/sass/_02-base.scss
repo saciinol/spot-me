@@ -1,0 +1,190 @@
+body {
+	color-scheme: light dark;
+	color: light-dark($foreground-light, $foreground-dark);
+	background-color: light-dark($background-light, $background-dark);
+}
+
+body.dark-mode {
+	color-scheme: dark light;
+	color: light-dark($foreground-dark, $foreground-light);
+	background-color: light-dark($background-dark, $background-light);
+
+	header {
+		background-color: light-dark($background-dark, $background-light);
+  border-bottom: 1px solid #bebebe;
+	}
+
+	svg path {
+		fill: light-dark($foreground-dark, $foreground-light);
+	}
+
+	#sidebar {
+		background-color: light-dark($background-dark, $background-light);
+		color: light-dark($foreground-dark, $foreground-light);
+	}
+
+	a {
+		color: light-dark($foreground-dark, $foreground-light);
+	}
+
+ #burger-sidebar {
+  background-color: light-dark($background-dark, $background-light);
+  color: light-dark($foreground-dark, $foreground-light);
+ }
+
+	#theme-toggle {
+		svg {
+			fill: light-dark($foreground-dark, $foreground-light);
+		}
+
+	}
+ 
+ .svg-lightdark {
+  color: light-dark($foreground-dark, $foreground-light);
+ }
+
+	#theme-toggle div:first-child {
+		display: none;
+	}
+
+	#theme-toggle div:last-child {
+		display: flex;
+	}
+
+	.logo img:first-child {
+		display: none;
+	}
+
+	.logo img:last-child {
+		display: block;
+	}
+
+	.categories {
+		a {
+			color: light-dark($foreground-light, $foreground-dark);
+		}
+
+		&__item {
+			background-color: light-dark($background-light, $background-dark);
+		}
+	}
+
+	.content {
+		.analysis {
+      &-container {
+        background-color: #d4d4d4;
+      }
+    }
+
+    .exercise-header {
+      .btn {
+        background-color: #d4d4d4;
+        color: light-dark($foreground-dark, $foreground-light);
+      }
+
+      .stats-buttons {
+        .popup-save {
+          background-color: #d4d4d4;
+          color: light-dark($foreground-dark, $foreground-light);
+        }
+      }
+    }
+	}
+
+  .body-stats {
+    .stats-container {
+      .reps-list {
+        background-color: #d4d4d4;
+
+        ul {
+          li {
+            .popup-delete {
+              background-color: #d4d4d4;
+              color: light-dark($foreground-dark, $foreground-light);
+            }
+          }
+        }
+      }
+    }
+  }
+  
+	.terminologies-safetytips {
+		background: light-dark($background-dark, $background-light);
+
+		.terms-tips {
+			p {
+				color: light-dark($foreground-dark, $foreground-light);
+			}
+		}
+	}
+
+  .panel {
+    background: light-dark($background-dark, $background-light);
+
+    .search-container {
+      background: light-dark($background-dark, $background-light);
+    }
+
+    form {
+  
+      input {
+        border: solid 1px light-dark($foreground-dark, $foreground-light);
+        background-color: light-dark($background-dark, $background-light);
+      }
+
+      input[placeholder] {
+        color: light-dark($foreground-dark, $foreground-light);
+      }
+    }
+  }
+
+	.toggle-menu {
+		background: light-dark($background-dark, $background-light);
+
+		span {
+			background-color: light-dark($foreground-dark, $foreground-light);
+		}
+	}
+
+ .navigation {
+  background-color: light-dark($background-dark, $background-light);
+  border-top: 1px solid #bebebe;
+
+  .icon {
+   color: light-dark($foreground-dark, $foreground-light);
+  }
+
+  .text {
+   color: light-dark($foreground-dark, $foreground-light);
+  }
+ }
+
+ #instructions  {
+  background-color: light-dark($background-dark, $background-light);
+  color: light-dark($foreground-dark, $foreground-light);
+ }
+
+ .tutorial {
+  background-color: light-dark($background-dark, $background-light);
+  color: light-dark($foreground-dark, $foreground-light);
+
+  .terms-tips {
+    border: 1px solid #3d3d3d;
+
+    p {
+      color: light-dark($foreground-dark, $foreground-light);
+    }
+  }
+ }
+}
+
+.container {
+	max-width: 95%;
+	margin: 0 auto;
+}
+
+@media (min-width: 480px) {
+	.container {
+		max-width: 99%;
+	}
+}

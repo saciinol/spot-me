@@ -1,0 +1,220 @@
+header {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ position: fixed;
+ top: 0;
+ width: 100vw;
+ padding: 1em;
+ border-bottom: 1px solid #282828;
+ background-color: $background-dark;
+ z-index: 1;
+
+ #btn-back, #btn-just-back {
+   cursor: pointer;
+ }
+
+
+ #btn-back-invisible {
+   cursor: default;
+   opacity: 0;
+ }
+
+ .arrow { 
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   gap: 10px;
+ }
+
+ #burger-label-invisible {
+   opacity: 0;
+   cursor: default;
+ }
+
+ .logo {
+
+   h1 {
+     display: none;
+   }
+
+   img {
+     width: 8rem; 
+   }
+ }
+
+ .logo img:first-child {
+    display: block;
+  }
+
+  .logo img:last-child {
+    display: none;
+  }
+ 
+ .colormode-burger {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   gap: 10px;
+
+ }
+
+ h1 {
+   font-style: italic;
+   font-size: 2.5rem;
+ }
+
+ svg path {
+   fill: $foreground-dark;
+ }
+}
+
+.burger {
+ display: flex;
+ gap: .3rem;
+ z-index: 2;
+ cursor: pointer;
+}
+
+#burger-x, #instructions-x {
+ position: absolute;
+ top: 2rem;
+ left: 16rem;
+ display: none;
+ flex-direction: column;
+ gap: .16rem;
+ cursor: pointer;
+
+ /* Note 1 - Start */
+ /* Calculate height of burger menu
+ calc((heightOfSpan - 1) * numberOfSpan + gapBetweenSpan * numberOfGaps */
+ --burger-height: calc(3.5px * 3 + .3em * 2);
+
+ /* Calculate width of span
+   calc(burger-height * sqrtOf2 */
+ --x-width: calc(var(--burger-height) * 1.41421356237);
+
+ span {
+   display: block;
+   width: 20px;
+   border-top: 3.5px solid $accent-new;
+   border-radius: 3.3px;   
+   transform-origin: left center;
+   transition: 400ms;
+ }
+}
+
+#instructions-x {
+left: 19.5rem !important;
+}
+
+.burger-x-toggled, .instructions-x-toggled {
+ display: flex !important;
+}
+
+.burger-x-toggled span:nth-child(1), .instructions-x-toggled span:nth-child(1) {
+ width: var(--x-width);
+
+ /* Transform in x 0 because no horizontal movement required but move
+    (heightOfSpan - 1) / -2 ; negative to move down */
+ transform: rotate(45deg) translate(0, calc(7px / -2));
+}
+
+.burger-x-toggled span:nth-child(2), .instructions-x-toggled span:nth-child(2) {
+ width: 0;
+ opacity: 0;
+}
+
+.burger-x-toggled span:nth-child(3), .instructions-x-toggled span:nth-child(3) {
+ width: var(--x-width);
+ transform: rotate(-45deg) translate(0, calc(7px / 2));
+ /* Note 1 - End */
+}
+
+.toggle-menu {
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ align-items: center;
+ gap: 4px;
+ border: none;
+ z-index: 999;  
+ cursor: pointer;
+ background-color: $background-dark;
+ 
+ span {
+   display: block;
+   width: 20px;
+   height: 2.5px;
+   background-color: $foreground-dark;
+ }
+}
+
+.popup-return {
+  position: absolute;
+  top: 39%;
+  left: 5%;
+  bottom: 50%;
+  display: none;
+  width: 338px;
+  height: 150px;
+  border-radius: 5px;
+  background-color: #282828;
+  color: $foreground-dark;
+  animation: popup 0.2s;
+  z-index: 5;
+
+  &-container {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 30px;
+
+    .btn-yesno-return {
+      display: flex;
+      gap: 100px;
+      font-size: 1.5rem;
+
+      .save-save-return {
+        background-color: $accent-new;
+        padding: 0.5rem 2rem;
+        border-radius: 5px;
+        border: solid 1px transparent;
+        cursor: pointer;
+      }
+
+      .save-close-return {
+        background-color: transparent;
+        padding: 0.5rem 2rem;
+        border-radius: 5px;
+        border: solid 1px #3e3e3e;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.popup-return-toggled {
+  display: block;
+}
+
+@media (min-width: 480px) {
+ header {
+  padding: 1em 2em;
+ }
+ 
+ .logo {
+   display: flex;
+   gap: 1em;
+
+   h1 {
+     display: block !important;
+   }
+ }
+
+ .popup-return {
+  left: 39%;
+ }
+}

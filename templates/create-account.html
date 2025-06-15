@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>SpotMe</title>
+ <link rel="icon" href="{{ url_for('static', filename='images/icons/tab-icon.png')}}">
+ <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+ <title></title>
+</head>
+
+<body class="login-body">
+ <div class="login-container">
+  <div class="logo">
+   <img src="{{ url_for('static', filename='images/icons/spotme-icon-dark.png')}}" alt="" />
+  </div>
+
+  <div class="form-container">
+   <div id="overlay"></div>
+   
+   <form>
+    <div class="user-input">
+     <div>
+      <input type="text" id="email" name="email" placeholder="Email" />
+     </div>
+
+     <div>
+      <input type="text" id="username" name="username" placeholder="Username" />
+     </div>
+
+     <div>
+      <input type="password" id="password" name="password" placeholder="Password" />
+     </div>
+
+     <div>
+      <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm Password" />
+       <div class="form-links fl-pw">
+         <a href="{{ url_for('forgot_password') }}">Forgot your password?</a>
+       </div>
+     </div>
+    </div>
+
+    <div class="login-but-reg">
+     <button id="btn-create">Create Account</button>
+
+     <div class="form-links">
+      <p>Already have an account? <a href="{{ url_for('login') }}">Login</a></p>
+     </div>
+    </div>
+   </form>
+  </div>
+ </div>
+
+ <div class="centerer">
+  <div class="popup popup-create">
+   <div class="popup-container">
+    <h2>Passwords given are not the same!</h2>
+
+    <div class="popup-yesno">
+     <a class="popup-yes create-ok">
+      Ok
+     </a>
+    </div>
+   </div>
+  </div>
+
+  <div class="popup popup-incomplete">
+   <div class="popup-container">
+    <h2>Please fill all input fields first!</h2>
+
+    <div class="popup-yesno">
+     <a class="popup-yes incomplete-ok">
+      Ok
+     </a>
+    </div>
+   </div>
+  </div>
+
+  <div class="popup popup-found">
+   <div class="popup-container">
+    <h2>Account already exists!</h2>
+
+    <div class="popup-yesno">
+     <a class="popup-yes found-ok">
+      Ok
+     </a>
+    </div>
+   </div>
+  </div>
+  
+  <div class="popup popup-short">
+    <div class="popup-container">
+     <h2>Password needs to be at least 8 characters!</h2>
+ 
+     <div class="popup-yesno">
+      <a class="popup-yes short-ok">
+       Ok
+      </a>
+     </div>
+    </div>
+   </div>
+</body>
+
+<script src="{{ url_for('static', filename='js/create_account.js') }}"></script>
+
+</html>
