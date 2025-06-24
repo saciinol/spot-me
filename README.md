@@ -24,7 +24,7 @@ A computer vision-based fitness tracker that provides **real-time voice feedback
 
 ## 📸 Screenshots
 
-> _(Add screenshots or demo GIFs here of the pose detection and dashboard UI.)_
+
 ![SpotMe Login](./static/images/ss/-login.png)
 ![SpotMe Dashboard](./static/images/ss/dashboard.png)
 ![SpotMe Dashboard](./static/images/ss/pose-detection.png)
