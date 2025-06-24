@@ -25,7 +25,9 @@ A computer vision-based fitness tracker that provides **real-time voice feedback
 ## 📸 Screenshots
 
 > _(Add screenshots or demo GIFs here of the pose detection and dashboard UI.)_
-![SpotMe Pose Detection](./static/images/ss/spot-me-login.png)
+![SpotMe Login](./static/images/ss/-login.png)
+![SpotMe Dashboard](./static/images/ss/dashboard.png)
+![SpotMe Dashboard](./static/images/ss/pose-detection.png)
 
 ---
 
@@ -35,3 +37,14 @@ A computer vision-based fitness tracker that provides **real-time voice feedback
    ```bash
    git clone https://github.com/saciinol/spot-me.git
    cd spot-me
+
+2. **Create a virtual environment & install dependencies**
+  python -m venv venv
+  source venv/bin/activate  # or venv\Scripts\activate on Windows
+  pip install -r requirements.txt
+
+3. **Run the app**
+  flask run
+
+4. **Open in browser**
+  Open in browser
