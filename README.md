@@ -24,9 +24,9 @@ A computer vision-based fitness tracker that provides **real-time voice feedback
 
 ## 📸 Screenshots
 
-<img src="./static/images/ss/login.png" alt="Screenshot" width="500"/>
-<img src="./static/images/ss/dashboard.png" alt="Screenshot" width="500"/>
-<img src="./static/images/ss/pose-detection.png" alt="Screenshot" width="500"/>
+<img src="./static/images/ss/login.png" alt="Screenshot" width="250"/>
+<img src="./static/images/ss/dashboard.png" alt="Screenshot" width="250"/>
+<img src="./static/images/ss/pose-detection.png" alt="Screenshot" width="250"/>
 
 ---
 
