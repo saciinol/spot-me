@@ -17,16 +17,21 @@ font_awesome = FontAwesome(app)
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import inspect
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://postgres:BJRDxRWqoELeILuQGjVfmIlrkFlPuBqU@gondola.proxy.rlwy.net:40846/railway"
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
 
 db = SQLAlchemy(app)
 dynamic_models = {}
 
 class Accounts(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(200), nullable=False) 
-    username = db.Column(db.String(200), nullable=False) 
-    password = db.Column(db.String(200), nullable=False) 
+    email = db.Column(db.String(200), nullable=False)
+    username = db.Column(db.String(200), nullable=False)
+    password = db.Column(db.String(200), nullable=False)
 
 def create_table_name(username, exercise):
     return f"{username}_{exercise}".replace(" ", "")
@@ -47,7 +52,7 @@ def create_table_class(table_name):
             "__tablename__": table_name,
             "id": db.Column(db.Integer, primary_key=True),
             "date": db.Column(db.String(200), nullable=False),
-            "repetitions": db.Column(db.Integer, nullable=False) 
+            "repetitions": db.Column(db.Integer, nullable=False)
         }
     )
 
@@ -75,7 +80,7 @@ def login_account():
     if request.method == "POST":
         data = request.get_json()
         user = Accounts.query.filter_by(username=data.get("username")).first()
-            
+
         if not user:
             return jsonify({"response": 404})
         else:
@@ -131,7 +136,7 @@ def creating():
 @app.route("/forgot-password")
 def forgot_password():
     return render_template("forgot-password.html")
-  
+
 from itsdangerous import URLSafeTimedSerializer
 from flask_mail import Mail, Message
 
@@ -148,9 +153,9 @@ serializer = URLSafeTimedSerializer(app.secret_key)
 @app.route("/forgot-password/send-link", methods=["POST"])
 def send_reset_link():
     data = request.get_json()
-    email = data.get("email") 
+    email = data.get("email")
     user = Accounts.query.filter_by(email=email).first()
-    
+
     if not user:
         return jsonify({"response": 404})
     else:
@@ -163,7 +168,7 @@ def send_reset_link():
         mail.send(msg)
 
         return jsonify({"response": 200})
-      
+
 @app.route("/reset-password/<token>", methods=["GET", "POST"])
 def reset_password(token):
     try:
@@ -174,8 +179,8 @@ def reset_password(token):
     if request.method == "POST":
         data = request.get_json()
         password = data.get("password")
-        confirm_password = data.get("confirmPassword")               
-  
+        confirm_password = data.get("confirmPassword")
+
         if len(password) < 8:
                 return jsonify({"response": 401})
         elif password == confirm_password:
@@ -221,7 +226,7 @@ def changing_change():
                 user.password = newPassword
 
                 db.session.add(user)
-                db.session.commit()                
+                db.session.commit()
 
                 return jsonify({"response": 200})
 
@@ -249,14 +254,14 @@ def deleting():
                 return jsonify({"response": 405})
             else:
                 db.session.delete(user)
-                db.session.commit()                
+                db.session.commit()
 
                 return jsonify({"response": 200})
 
 @app.route("/logout")
 def logout():
     session.clear()
-    
+
     return redirect(url_for("login"))
 
 ################################################################################
@@ -283,31 +288,31 @@ from functions.text_to_speech.text_to_speech import text_to_speech
 
 pause_event = Event()
 
-def get_critique_upper( 
-                 exercise, 
-                 distance_wrists_status, 
+def get_critique_upper(
+                 exercise,
+                 distance_wrists_status,
                  distance_elbows_status):
     global last_critique
 
     voice_critique = None
 
-    
+
     if distance_wrists_status == "Wide" and distance_elbows_status == "Wide":
         voice_critique = "You're arms are too wide narrow them"
     elif distance_wrists_status == "Narrow" and distance_elbows_status == "Narrow":
         voice_critique = "You're arms are too narrow widen them"
     elif distance_wrists_status == "High" and distance_elbows_status == "High":
         voice_critique = "You're arms are too high lower them"
-    else:                         
+    else:
         voice_critique = "Perfect form"
 
     if voice_critique and voice_critique != last_critique[exercise]:
         text_to_speech(voice_critique)
         last_critique[exercise] = voice_critique
 
-def get_critique_lower( 
-                 exercise, 
-                 distance_knees_status, 
+def get_critique_lower(
+                 exercise,
+                 distance_knees_status,
                  distance_ankles_status):
     global last_critique
 
@@ -317,7 +322,7 @@ def get_critique_lower(
         voice_critique = "You're legs are too wide narrow them"
     elif distance_knees_status == "Narrow" and distance_ankles_status == "Narrow":
         voice_critique = "You're legs are too narrow widen them"
-    else:                         
+    else:
         voice_critique = "Perfect form"
 
     if voice_critique and voice_critique != last_critique[exercise]:
@@ -350,12 +355,12 @@ def analyze_barbell_curl(results, image, exercise):
 
         similar = detect_face(image)
         if not similar:
-            cv2.putText(image, "Unauthorized person detected!", 
+            cv2.putText(image, "Unauthorized person detected!",
                         (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1,
-                        (0, 69, 255), 2, cv2.LINE_AA) 
+                        (0, 69, 255), 2, cv2.LINE_AA)
 
         # Count reps based on angle
-        if similar and avg_angle >= 150:  
+        if similar and avg_angle >= 150:
             stage[exercise] = "down"
 
         if similar and avg_angle <= 30 and stage[exercise] == "down" and \
@@ -371,10 +376,10 @@ def analyze_barbell_curl(results, image, exercise):
         distance_elbows_status = get_distance_elbows_status(
             exercise, distance_elbows)
 
-       
+
 
         # Count reps based on angle
-        if avg_angle >= 150:  
+        if avg_angle >= 150:
             stage[exercise] = "down"
 
         if avg_angle <= 30 and stage[exercise] == "down" and \
@@ -382,10 +387,10 @@ def analyze_barbell_curl(results, image, exercise):
             distance_elbows_status == "Neutral":
             stage[exercise] = "up"
             counter[exercise] += 1
-        
-        get_critique_upper(exercise, distance_wrists_status, 
+
+        get_critique_upper(exercise, distance_wrists_status,
             distance_elbows_status)
-        
+
     except Exception as e:
         print("Error in barbell curl analysis:", e)
         return "Error", counter[exercise]
@@ -399,7 +404,7 @@ def analyze_bench_press(results, image):
     try:
         coords = get_coords("upper", results)
         left_angle, right_angle, avg_angle = get_angles("upper", coords)
-        
+
         # Visualize angles
         if "left_elbow" in coords:
             cv2.putText(image, f"{int(left_angle)}",
@@ -413,33 +418,33 @@ def analyze_bench_press(results, image):
 
         similar = detect_face(image)
         if not similar:
-            cv2.putText(image, "Unauthorized person detected!", 
+            cv2.putText(image, "Unauthorized person detected!",
                         (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1,
-                        (0, 69, 255), 2, cv2.LINE_AA) 
+                        (0, 69, 255), 2, cv2.LINE_AA)
 
         distance_wrists, distance_elbows = get_distances("upper", coords)
 
         distance_wrists_status = get_distance_wrists_status(
             exercise, distance_wrists)
         distance_elbows_status = get_distance_elbows_status(
-            exercise, distance_elbows) 
+            exercise, distance_elbows)
 
         if similar and avg_angle >= 130 and stage[exercise] == "up" and \
             distance_wrists_status == "Neutral" and \
             distance_elbows_status == "Neutral":
             stage[exercise] = "down"
-            counter[exercise] += 1            
+            counter[exercise] += 1
 
         if avg_angle <= 100:
             stage[exercise] = "up"
 
-        get_critique_upper(exercise, distance_wrists_status, 
+        get_critique_upper(exercise, distance_wrists_status,
             distance_elbows_status)
 
     except Exception as e:
         print("Error in analysis:", e)
         return "Error", counter["bench_press"]
-       
+
 def analyze_dumbbell_bench_press(results, image):
     global counter, stage, last_critique, distance_wrists, \
         distance_elbows, distance_wrists_status, distance_elbows_status
@@ -462,30 +467,30 @@ def analyze_dumbbell_bench_press(results, image):
 
         similar = detect_face(image)
         if not similar:
-            cv2.putText(image, "Unauthorized person detected!", 
+            cv2.putText(image, "Unauthorized person detected!",
                         (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1,
-                        (0, 69, 255), 2, cv2.LINE_AA) 
+                        (0, 69, 255), 2, cv2.LINE_AA)
 
         distance_wrists, distance_elbows = get_distances("upper", coords)
 
-        
+
         distance_wrists_status = get_distance_wrists_status(exercise,
             distance_wrists)
         distance_elbows_status = get_distance_elbows_status(exercise,
             distance_elbows)
-        
-        
+
+
         # Count reps based on angle
         if similar and avg_angle >= 110 and stage[exercise] == "up" and \
         distance_wrists_status == "Neutral" and \
             distance_elbows_status == "Neutral":
             stage[exercise] = "down"
-            counter[exercise] += 1            
+            counter[exercise] += 1
 
         if avg_angle <= 60:
             stage[exercise] = "up"
 
-        get_critique_upper(exercise, distance_wrists_status, 
+        get_critique_upper(exercise, distance_wrists_status,
                            distance_elbows_status)
 
     except Exception as e:
@@ -518,9 +523,9 @@ def analyze_barbell_press(results, image, exercise):
 
         similar = detect_face(image)
         if not similar:
-            cv2.putText(image, "Unauthorized person detected!", 
+            cv2.putText(image, "Unauthorized person detected!",
                         (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1,
-                        (0, 69, 255), 2, cv2.LINE_AA) 
+                        (0, 69, 255), 2, cv2.LINE_AA)
 
         distance_wrists, distance_elbows = get_distances("upper", coords)
 
@@ -528,7 +533,7 @@ def analyze_barbell_press(results, image, exercise):
             exercise, distance_wrists)
         distance_elbows_status = get_distance_elbows_status(
             exercise, distance_elbows)
-        
+
         # Count reps based on angle
         if similar and avg_angle >= 140 and stage[exercise] == "up" and \
             distance_wrists_status == "Neutral" and \
@@ -536,12 +541,12 @@ def analyze_barbell_press(results, image, exercise):
             stage[exercise] = "down"
             counter[exercise] += 1
 
-        if avg_angle <= 30:  
+        if avg_angle <= 30:
             stage[exercise] = "up"
 
         get_critique_upper(
-            exercise, 
-            distance_wrists_status, 
+            exercise,
+            distance_wrists_status,
             distance_elbows_status)
 
     except Exception as e:
@@ -570,9 +575,9 @@ def analyze_lateral_raises(results, image):
 
         similar = detect_face(image)
         if not similar:
-            cv2.putText(image, "Unauthorized person detected!", 
+            cv2.putText(image, "Unauthorized person detected!",
                         (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1,
-                        (0, 69, 255), 2, cv2.LINE_AA) 
+                        (0, 69, 255), 2, cv2.LINE_AA)
 
         distance_left, distance_right = get_distances("lateral_raises", coords)
 
@@ -580,7 +585,7 @@ def analyze_lateral_raises(results, image):
             exercise, distance_left)
         distance_elbows_status = get_distance_elbows_status(
             exercise, distance_right)
-        
+
 
         # Count reps based on angle
         if similar and avg_angle <= 7 and stage[exercise] == "up" and \
@@ -593,8 +598,8 @@ def analyze_lateral_raises(results, image):
             stage[exercise] = "up"
 
         get_critique_upper(
-            exercise, 
-            distance_wrists_status, 
+            exercise,
+            distance_wrists_status,
             distance_elbows_status)
 
     except Exception as e:
@@ -623,30 +628,30 @@ def analyze_barbell_rows(results, image):
 
         similar = detect_face(image)
         if not similar:
-            cv2.putText(image, "Unauthorized person detected!", 
+            cv2.putText(image, "Unauthorized person detected!",
                         (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1,
-                        (0, 69, 255), 2, cv2.LINE_AA) 
+                        (0, 69, 255), 2, cv2.LINE_AA)
 
         distance_wrists, distance_elbows = get_distances("upper", coords)
-      
+
         distance_wrists_status = get_distance_wrists_status(
             exercise, distance_wrists)
         distance_elbows_status = get_distance_elbows_status(
             exercise, distance_elbows)
-      
+
 
         if similar and avg_angle <= 130 and stage[exercise] == "up" and \
             distance_wrists_status == "Neutral" and \
             distance_elbows_status == "Neutral":
             stage[exercise] = "down"
-            counter[exercise] += 1            
+            counter[exercise] += 1
 
         if avg_angle >= 170:
             stage[exercise] = "up"
-            
+
         get_critique_upper(
-            exercise, 
-            distance_wrists_status, 
+            exercise,
+            distance_wrists_status,
             distance_elbows_status)
 
     except Exception as e:
@@ -675,9 +680,9 @@ def analyze_pullups(results, image):
 
         similar = detect_face(image)
         if not similar:
-            cv2.putText(image, "Unauthorized person detected!", 
+            cv2.putText(image, "Unauthorized person detected!",
                         (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1,
-                        (0, 69, 255), 2, cv2.LINE_AA) 
+                        (0, 69, 255), 2, cv2.LINE_AA)
 
         distance_wrists, distance_elbows = get_distances("upper", coords)
 
@@ -686,7 +691,7 @@ def analyze_pullups(results, image):
         distance_elbows_status = get_distance_elbows_status(
             exercise, distance_elbows)
 
-        
+
 
         # Count reps based on angle
         if avg_angle >= 160:
@@ -699,8 +704,8 @@ def analyze_pullups(results, image):
             counter[exercise] += 1
 
         get_critique_upper(
-            exercise, 
-            distance_wrists_status, 
+            exercise,
+            distance_wrists_status,
             distance_elbows_status)
 
     except Exception as e:
@@ -730,9 +735,9 @@ def analyze_squat(results, image):
 
         similar = detect_face(image)
         if not similar:
-            cv2.putText(image, "Unauthorized person detected!", 
+            cv2.putText(image, "Unauthorized person detected!",
                         (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1,
-                        (0, 69, 255), 2, cv2.LINE_AA) 
+                        (0, 69, 255), 2, cv2.LINE_AA)
 
         distance_knees, distance_ankles = get_distances("lower", coords)
 
@@ -740,10 +745,10 @@ def analyze_squat(results, image):
             exercise, distance_knees)
         distance_ankles_status = get_distance_ankles_status(
             exercise, distance_ankles)
-        
-       
+
+
         # Count reps based on angle
-        if avg_angle >= 170:  
+        if avg_angle >= 170:
             stage[exercise] = "down"
 
         # Squatting
@@ -758,11 +763,11 @@ def analyze_squat(results, image):
             distance_knees_status,
             distance_ankles_status
         )
-        
+
     except Exception as e:
         print("Error in analysis:", e)
         return "Error", counter[exercise]
-       
+
 def analyze_deadlift(results, image):
     global counter, stage, last_critique, distance_knees, \
         distance_ankles, distance_knees_status, distance_ankles_status
@@ -786,20 +791,20 @@ def analyze_deadlift(results, image):
 
         similar = detect_face(image)
         if not similar:
-            cv2.putText(image, "Unauthorized person detected!", 
+            cv2.putText(image, "Unauthorized person detected!",
                         (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1,
-                        (0, 69, 255), 2, cv2.LINE_AA) 
-                 
+                        (0, 69, 255), 2, cv2.LINE_AA)
+
         distance_knees, distance_ankles = get_distances("lower", coords)
 
         distance_knees_status = get_distance_knees_status(
             exercise, distance_knees)
         distance_ankles_status = get_distance_ankles_status(
             exercise, distance_ankles)
-        
+
 
         # Count reps based on angle
-        if avg_angle <= 160:  # Standing 
+        if avg_angle <= 160:  # Standing
             stage[exercise] = "up"
 
         # Squatting
@@ -807,17 +812,17 @@ def analyze_deadlift(results, image):
             distance_knees_status == "Neutral" and \
             distance_ankles_status == "Neutral":
             stage[exercise] = "down"
-            counter[exercise] += 1            
+            counter[exercise] += 1
 
         get_critique_lower(
             exercise,
             distance_knees_status,
             distance_ankles_status
         )
-        
+
     except Exception as e:
         print("Error in analysis:", e)
-        return "Error", counter[exercise]       
+        return "Error", counter[exercise]
 
 # Modular frame creation function
 def create_frames(exercise):
@@ -836,7 +841,7 @@ def create_frames(exercise):
 
             # if exercise == "dumbbell_bench_press":
             #     frame = cv2.rotate(frame, cv2.ROTATE_90_CLOCKWISE)
-                
+
             image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             image.flags.writeable = False
             results = pose.process(image)
@@ -845,7 +850,7 @@ def create_frames(exercise):
 
             # Analyze based on selected exercise
             match exercise:
-                case "barbell_curl": 
+                case "barbell_curl":
                     analyze_barbell_curl(results, image, exercise)
                 case "dumbbell_bicep_curl":
                     analyze_barbell_curl(results, image, exercise)
@@ -858,22 +863,22 @@ def create_frames(exercise):
                 case "dumbbell_press":
                     analyze_barbell_press(results, image, exercise)
                 case "lateral_raises":
-                    analyze_lateral_raises(results, image)                
+                    analyze_lateral_raises(results, image)
                 case "barbell_rows":
                     analyze_barbell_rows(results, image)
                 case "pull_ups":
-                    analyze_pullups(results, image)                
+                    analyze_pullups(results, image)
                 case "squat":
                     analyze_squat(results, image)
                 case "deadlift":
-                    analyze_deadlift(results, image)                
-                    
+                    analyze_deadlift(results, image)
+
             # if exercise == "dumbbell_bench_press":
             #     image = cv2.rotate(image, cv2.ROTATE_90_COUNTERCLOCKWISE)
-                
+
             # Draw pose landmarks
             mp_drawing.draw_landmarks(image, results.pose_landmarks, mp_pose.POSE_CONNECTIONS)
-                
+
             _, buffer = cv2.imencode(".jpg", image)
             frame = buffer.tobytes()
 
@@ -926,7 +931,7 @@ def dumbbell_bench_press():
     exercise = "dumbbell_bench_press"
 
     return render_template("video_feed.html", exercise=exercise)
-   
+
 @app.route("/barbell_press")
 def barbell_press():
     exercise = "barbell_press"
@@ -944,7 +949,7 @@ def lateral_raises():
     exercise = "lateral_raises"
 
     return render_template("video_feed.html", exercise=exercise)
-   
+
 @app.route("/pull_ups")
 def pull_ups():
     exercise = "pull_ups"
@@ -955,19 +960,19 @@ def pull_ups():
 def barbell_rows():
     exercise = "barbell_rows"
 
-    return render_template("video_feed.html", exercise=exercise)   
+    return render_template("video_feed.html", exercise=exercise)
 
 @app.route("/squat")
 def squat():
     exercise = "squat"
 
-    return render_template("video_feed.html", exercise=exercise)   
+    return render_template("video_feed.html", exercise=exercise)
 
 @app.route("/deadlift")
 def deadlift():
     exercise = "deadlift"
 
-    return render_template("video_feed.html", exercise=exercise)   
+    return render_template("video_feed.html", exercise=exercise)
 
 ################################################################################
 #### VIDEO FEED
@@ -1012,22 +1017,22 @@ def exercise_data(exercise):
         })
     else:
         return jsonify({"critique": "Invalid exercise", "counter": 0})
-    
+
 @app.route("/reset_counter", methods=["POST"])
 def reset_counter():
     global counter
 
     counter = {
         "barbell_curl": 0,
-        "dumbbell_bicep_curl": 0, 
-        "bench_press": 0, 
-        "dumbbell_bench_press": 0, 
+        "dumbbell_bicep_curl": 0,
+        "bench_press": 0,
+        "dumbbell_bench_press": 0,
         "barbell_press": 0,
         "dumbbell_press": 0,
         "lateral_raises": 0,
         "pull_ups": 0,
         "squat": 0,
-        "deadlift": 0,        
+        "deadlift": 0,
         "barbell_rows": 0
     }
 
@@ -1054,7 +1059,7 @@ def save(exercise):
     workout = model_class(
         date=date.strftime("%m/%d/%Y %I:%M:%S%p"),
         repetitions=count
-    )    
+    )
 
     db.session.add(workout)
     db.session.commit()
@@ -1080,7 +1085,7 @@ def stats(exercise):
     for row in exercise_data:
         ids.append(row.id)
         exercise_reps.append(row.repetitions)
-        dates.append(row.date) 
+        dates.append(row.date)
 
     for _id, date, reps in zip(ids, dates, exercise_reps):
         workouts[_id] = (date, reps)
@@ -1095,7 +1100,7 @@ def stats(exercise):
         case "bench_press":
             name_exercise = "Bench Press"
         case "dumbbell_bench_press":
-            name_exercise = "Dumbbell Bench Press"                    
+            name_exercise = "Dumbbell Bench Press"
         case "barbell_press":
             name_exercise = "Barbell Press"
         case "dumbbell_press":
@@ -1112,8 +1117,8 @@ def stats(exercise):
             name_exercise = "Lateral Raises"
 
     return render_template(
-        "stats.html", 
-        exercise=exercise, 
+        "stats.html",
+        exercise=exercise,
         name_exercise=name_exercise,
         workouts=workouts
     )
@@ -1133,7 +1138,7 @@ def get_progress(exercise, duration):
 
     for row in exercise_data:
         collected_reps.append(row.repetitions)
-    
+
     match duration:
         case "weekly":
             collected_reps = collected_reps[-7:]
@@ -1168,19 +1173,19 @@ def search_terminologies():
     data = request.get_json()
     term = data.get("searchTerm")
     terms = get_terminologies(term)
-    
+
     return jsonify(terms)
 
 @app.route("/all_terminologies", methods=["POST"])
 def all_terminologies():
     terms = get_all_terminologies()
-    
+
     return jsonify(terms)
-    
+
 @app.route("/all_tips", methods=["POST"])
 def all_tips():
     terms = get_all_tips()
-    
+
     return jsonify(terms)
 
 @app.route("/search/tips", methods=["POST"])
@@ -1188,7 +1193,7 @@ def search_tips():
     data = request.get_json()
     tip = data.get("searchTerm")
     tips = get_tips(tip)
-    
+
     return jsonify(tips)
 
 ################################################################################
@@ -1201,7 +1206,7 @@ from functions.databases.tips import initialize_tips, get_tips, get_all_tips
 @app.route("/")
 def homepage():
     return render_template("homepage.html")
-  
+
 @app.route("/disclaimer")
 def disclaimer():
     return render_template("disclaimer.html")
